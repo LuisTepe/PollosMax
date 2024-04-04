@@ -1,0 +1,104 @@
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background: #fbd23a;
+    /* overflow-x: ; */
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #020914;
+    display: block;
+}
+.sidebar-toggle {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 10px;
+    background-color: #fbd23a; /* Adjust as needed */
+    color: #000; /* Adjust as needed */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .close-session {
+    position: absolute;
+    top: 80%;
+    left: 10%;
+    padding: 10px;
+    font-family: 'Allerta';
+    background-color: #fbd23a; /* Adjust as needed */
+    color: #000; /* Adjust as needed */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .close-session:hover {
+    background-color: rgb(124, 50, 113);
+    color: white;
+  }
+  
+  .sidebar.closed {
+    display: none;
+  }
+
+  .sidebar-toggle:hover {
+    background-color: rgb(124, 50, 113);
+    color: white;
+  }
+
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: white;
+}
+
+.sidebar .closebtn {
+    position: fixed;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidebar {
+        padding-top: 15px;
+    }
+
+    .sidebar a {
+        font-size: 18px;
+    }
+}
+
+/* Nuevo estilo para el hover */
+.sidebar a:hover {
+    background-color: rgb(124, 50, 113);
+    color: white;
+}
+
+#open-close-btn:hover {
+    background-color: rgb(124, 50, 113) !important;
+    color: white;
+}
+
+.sidebar-active{
+    background-color: rgb(124, 50, 113);
+    color: white !important;
+}

@@ -1,0 +1,63 @@
+
+/* This is the CSS file for the InventoryPage component */
+table { 
+  border-collapse: separate; 
+  border-spacing: 0 10px; 
+  margin-top: 0px;
+}
+td {
+  border: solid 1px #000;
+  border-style: solid none;
+  padding: 10px;
+}
+td:first-child {
+  border-left-style: solid;
+  border-top-left-radius: 10px; 
+  border-bottom-left-radius: 10px;
+}
+td:last-child {
+  border-right-style: solid;
+  border-bottom-right-radius: 10px; 
+  border-top-right-radius: 10px; 
+}
+.table-container {
+  flex-grow: 1;
+  overflow-x: auto;
+  overflow-y: auto;
+  border: 0px solid;
+  width: 100vw;
+  height: 75vh;
+}
+
+.table thead th {
+  background-color: purple;
+  color: white;
+  font-family: 'Arial', sans-serif;
+}
+
+.table {
+  font-family: 'Arial', sans-serif; 
+}
+
+.div-search {
+  background-color: purple;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.div-search input[type="search"] {
+  margin: 10px;
+  padding: 5px;
+  width: 60vw;
+  background-color: rgb(205, 154, 205);
+  color: white;
+  border-left-style: solid;
+  border-top-left-radius: 10px; 
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px; 
+  border-top-right-radius: 10px; 
+  outline: none;
+  color: black;
+}

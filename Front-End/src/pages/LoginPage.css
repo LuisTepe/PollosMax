@@ -1,0 +1,11 @@
+#login-container {
+    background: rgb(251, 225, 147);
+    width: auto;
+    height: auto;
+    padding: 0px;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
