@@ -23,7 +23,7 @@ function App() {
             {/* Solo para admin */}
             <Route path="/admin-productos" element={<ProductAdminPage />} />
             <Route path="/transacciones" element={<TransactionsPage />} />
-            <Route path="/inventario" element={<InventoryPage />} />
+            <Route path="/inv" element={<InventoryPage />} />
             <Route path="/reportes" element={<ReportsPage />} />
 
             <Route path="/" element={<Login />} />
