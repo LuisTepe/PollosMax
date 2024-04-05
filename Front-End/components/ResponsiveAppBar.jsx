@@ -23,9 +23,6 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen}) {
     return (
         <div>
                 <div id="mySidebar" className={`sidebar ${isSidebarOpen ? '' : 'closed'}`} style={{ background: "#fbd23a", height: '100%', width: '250px'}}>
-                    <button className="sidebar-toggle" onClick={toggleSidebar}>
-                        {isSidebarOpen ? '×' : '☰'}
-                    </button>
                     <div className="sidebar-header">
                         <img
                             src="../src/assets/img/pollomaxlogo.jpg"
@@ -51,9 +48,6 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen}) {
                         </div>
                     </ul>
                 </div>
-            <button className="sidebar-toggle" onClick={toggleSidebar}>
-                {isSidebarOpen ? '×' : '☰'}
-            </button>
         </div>
     );
 }

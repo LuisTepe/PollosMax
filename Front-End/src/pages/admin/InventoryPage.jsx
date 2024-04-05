@@ -4,6 +4,7 @@ import Sidebar from "../../../components/ResponsiveAppBar";
 import notificacion from "../../assets/img/notificacion.png";
 import axios from "axios";
 import EditMinimumAmountPopup from "../../../components/PopUpInventory";
+import AddProductPopup from '../../../components/PopUpUpdateInventory';
 
 async function updateInventoryAmount(idProduct, minimumAmount) {
   try {
@@ -22,12 +23,14 @@ async function updateInventoryAmount(idProduct, minimumAmount) {
 }
 
 export default function InventoryPage() {
+  const [isAdding, setIsAdding] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [items, setItems] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(""); // Cambia esto para que searchTerm sea modificable
+  const [searchTerm, setSearchTerm] = useState(""); // Para buscar productos
 
+  //Funcion para obtener el inventario
   const fetchItems = async () => {
     try {
       const response = await axios.get("http://localhost:3000/inventory");
@@ -37,6 +40,21 @@ export default function InventoryPage() {
     }
   };
 
+  //Funcion para agregar un producto
+  async function addProduct(product) {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/addInventoryProduct",
+        product
+      );
+  
+      console.log(response.data.message);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  //Funcion para buscar productos
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -44,6 +62,7 @@ export default function InventoryPage() {
     fetchItems();
   }, []);
 
+  //Funcion para obtener el inventario
   useEffect(() => {
     axios
       .get("http://localhost:3000/inventory")
@@ -55,21 +74,25 @@ export default function InventoryPage() {
       });
   }, []);
 
+  //Funcion para buscar productos
   const filteredItems = items.filter(
     (item) =>
       item.productName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.idProduct.toString().includes(searchTerm)
   );
 
+  //Funcion para editar la cantidad minima de un producto
   const startEditing = (item) => {
     setCurrentItem(item);
     setIsEditing(true);
   };
 
+  //Funcion para cerrar el popup
   const stopEditing = () => {
     setIsEditing(false);
   };
 
+  //Funcion para guardar la cantidad minima de un producto
   const handleSave = async (minimumAmount) => {
     await updateInventoryAmount(currentItem.idProduct, minimumAmount);
     setItems(
@@ -83,6 +106,13 @@ export default function InventoryPage() {
     stopEditing();
   };
 
+  //Funcion para guardar la cantidad minima de un producto
+  const handleSaveAdd = async (product) => {
+    await addProduct(product);
+    setIsAdding(false); // Cierra el popup después de guardar
+    fetchItems(); // Actualiza la lista de productos
+  };
+
   return (
     <div>
       <Sidebar
@@ -93,10 +123,11 @@ export default function InventoryPage() {
         <div className="div-search">
           <input
             type="search"
-            placeholder="Buscar por Nombre del Producto o por ID del Producto..."
+            placeholder="Buscar producto por nombre o ID..."
             value={searchTerm}
             onChange={handleSearchChange}
           />
+          <button className="btnAdd" onClick={() => setIsAdding(true)}>Agregar producto</button>
         </div>
         <div
           className="table-container"
@@ -116,7 +147,7 @@ export default function InventoryPage() {
             </thead>
             <tbody>
               {filteredItems.map((item) => (
-                <tr key={item.id}>
+                <tr key={item.idProduct}>
                   <td
                     style={{
                       backgroundColor:
@@ -135,7 +166,7 @@ export default function InventoryPage() {
                           : "#90EE90",
                     }}
                   >
-                    {item.idProductType}
+                    {item.productTypeName}
                   </td>
                   <td
                     style={{
@@ -186,6 +217,7 @@ export default function InventoryPage() {
                     }}
                   >
                     <img
+                      className="notificacion-img"
                       src={notificacion}
                       onClick={() => startEditing(item)}
                     />
@@ -202,6 +234,9 @@ export default function InventoryPage() {
           item={currentItem}
           onSave={handleSave}
         />
+      )}
+      {isAdding && (
+        <AddProductPopup onClose={() => setIsAdding(false)} onSave={handleSaveAdd} />
       )}
     </div>
   );
