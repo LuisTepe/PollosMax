@@ -10,7 +10,6 @@
   box-sizing: border-box;
 }
 
-
 .modal-container{
   position: absolute;
   top: 0;
@@ -28,7 +27,7 @@
 }
 
 .modal-content {
-  width: 450px;
+  width: 58vw; /* Aumenta el ancho del contenido del modal */
   height: auto;
   padding: 10px;
   border-radius: 10px;
@@ -52,6 +51,25 @@
   margin-bottom: 20px;
 }
 
+/* Estilos para la tabla */
+.modal-content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.modal-content table, .modal-content th, .modal-content td {
+  border: 1px solid black;
+}
+
+.modal-content th, .modal-content td {
+  padding: 10px;
+  text-align: left;
+  background-color: #EFEDED ;
+}
+.button-container {
+  display: flex;
+  justify-content: flex-start;
+}
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;

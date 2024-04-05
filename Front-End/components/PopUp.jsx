@@ -48,7 +48,7 @@ const Popup = ({ image, message, onClose }) => {
         <h2>Error!</h2>
         <img src={image} alt="Error image" />
         <p>{message}</p>
-        <button onClick={onClose}  style={{ marginTop: '2px', fontFamily: 'Allerta', background: color.color, borderWidth: '5px', borderColor: color.borderColor, borderTopColor: color.borderTopColor, borderRightColor: color.borderRightColor, borderBottomColor: color.borderBottomColor, outline: 'none' }} onMouseUp={handleMouseUp} onMouseDown={handleMouseDown} onMouseOver={handleHover} onMouseLeave={handleMouseUp}>Cerrar</button>
+        <button onClick={onClose}  style={{color:'white', marginTop: '2px', fontFamily: 'Allerta', background: color.color, borderWidth: '5px', borderColor: color.borderColor, borderTopColor: color.borderTopColor, borderRightColor: color.borderRightColor, borderBottomColor: color.borderBottomColor, outline: 'none' }} onMouseUp={handleMouseUp} onMouseDown={handleMouseDown} onMouseOver={handleHover} onMouseLeave={handleMouseUp}>Cerrar</button>
       </div>
     </div>
   );

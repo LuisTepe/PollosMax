@@ -39,7 +39,7 @@ const EditMinimumAmountPopup = ({ onClose, item, onSave }) => {
           </div>
           </div>
           <div>
-            <button onClick={handleSave} className="btn btn-primary" type="button" style={{ marginTop: '20px', fontFamily: 'Allerta', background: 'rgba(0, 0, 0, 1)', borderWidth: '5px', borderColor: 'rgba(0, 0, 0, 1)', borderTopColor: 'rgba(0, 0, 0, 1)', borderRightColor: 'rgba(0, 0, 0, 1)', borderBottomColor: 'rgba(0, 0, 0, 1)', outline: 'none' }}>GUARDAR</button>
+            <button onClick={handleSave} className="btn btn-primary" type="button" style={{ color:'white', marginTop: '20px', fontFamily: 'Allerta', background: 'rgba(0, 0, 0, 1)', borderWidth: '5px', borderColor: 'rgba(0, 0, 0, 1)', borderTopColor: 'rgba(0, 0, 0, 1)', borderRightColor: 'rgba(0, 0, 0, 1)', borderBottomColor: 'rgba(0, 0, 0, 1)', outline: 'none' }}>GUARDAR</button>
           </div>
         </div>
       </div>

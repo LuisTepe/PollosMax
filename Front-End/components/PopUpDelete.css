@@ -4,13 +4,12 @@
     box-sizing: border-box;
 }
 
-
 .modal-container{
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
-    min-height: 100vh;
+    width: 100%;
+    min-height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,6 +41,7 @@
     font-weight: 400;
     margin-bottom: 20px;
 }
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
