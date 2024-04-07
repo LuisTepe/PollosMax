@@ -10,12 +10,13 @@ const PopupProduct = ({ onClose, onConfirm, productName }) => {
         borderRightColor: 'rgba(0, 0, 0, 1)',
         borderBottomColor: 'rgba(0, 0, 0, 1)',
     })
+    const [QuantityChange, setQuantity] = useState("");
 
-    const [quantity, setQuantity] = useState(0);
     function handleClick(e) {
         e.preventDefault();
-        onConfirm(quantity);
+        onConfirm(QuantityChange);
     }
+
 
     function handleMouseUp() {
         setColor({
@@ -55,12 +56,13 @@ const PopupProduct = ({ onClose, onConfirm, productName }) => {
     };
 
     const handleQuantityChange = (e) => {
-        let value = e.target.value;
-        // Eliminar cualquier signo negativo (-) que se ingrese
-        value = value.replace(/-/g, '');
+        setQuantity('')
+        const value = Number(e.target.value);
         // Verificar si el valor es un número válido
-        if (!isNaN(value)) {
+        if (!isNaN(value) && value >= 0) {
             setQuantity(value);
+        }else{
+            setQuantity('')
         }
     };
 
@@ -81,7 +83,13 @@ const PopupProduct = ({ onClose, onConfirm, productName }) => {
                     </div>
                     <div>
                         <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '10px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="number" min="0" style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} onChange={handleQuantityChange} onKeyDown={handleKeyDown} />
+                            <input 
+                            type="number" 
+                            min="0" 
+                            style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} 
+                            value = {QuantityChange}
+                            onChange={handleQuantityChange} 
+                            onKeyDown={handleKeyDown} />
                         </div>
                     </div>
                     <div>
