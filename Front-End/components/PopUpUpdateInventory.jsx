@@ -15,12 +15,42 @@ const AddProductPopup = ({ onClose, onSave }) => {
     onClose();
   };
 
+  const handleProductAmountChange = (e) => {
+    setProductAmount('');
+    const value = Number(e.target.value);
+    if (!isNaN(value) && value >= 0) {
+      setProductAmount(value);
+    } else {
+      setProductAmount('');
+    }
+  };
+
+  const handleMinimumAmountChange = (e) => {
+    setMinimumAmount('');
+    const value = Number(e.target.value);
+    if (!isNaN(value) && value >= 0) {
+      setMinimumAmount(value);
+    } else {
+      setMinimumAmount('');
+    }
+  };
+
+  const handleProductPriceChange = (e) => {
+    setProductPrice('');
+    const value = Number(e.target.value);
+    if (!isNaN(value) && value >= 0) {
+      setProductPrice(value);
+    } else {
+      setProductPrice('');
+    }
+  };
+
   return (
     <div className="modal-container" id="modal">
-      <div className="modal-content" style={{ background: 'rgb(251, 225, 147)',  height: '550px', padding: '75px', borderRadius: '10px', border: '2px solid var(--bs-emphasis-color)', marginTop: '80px' }}>
+      <div className="modal-content" style={{ background: 'rgb(251, 225, 147)', height: '550px', padding: '75px', borderRadius: '10px', border: '2px solid var(--bs-emphasis-color)', marginTop: '80px' }}>
         <div style={{ width: '350px', textAlign: '', height: '500px' }}>
           <div className="">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" className="bi bi-x d-lg-flex align-content-around align-self-end order-1 justify-content-lg-end align-items-lg-start" style={{ width: '40px', height: '40px', cursor:'pointer' }} onClick={onClose}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" className="bi bi-x d-lg-flex align-content-around align-self-end order-1 justify-content-lg-end align-items-lg-start" style={{ width: '40px', height: '40px', cursor: 'pointer' }} onClick={onClose}>
               <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"></path>
             </svg>
           </div>
@@ -68,46 +98,46 @@ const AddProductPopup = ({ onClose, onSave }) => {
                       style={{ marginTop: '30px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px' }}
                     />
                   </td>
-                  </tr>
-                  <tr>
+                </tr>
+                <tr>
                   <td>Cantidad del producto</td>
                   <td>Cantidad mínima</td>
                   <td>Precio del producto</td>
                 </tr>
-                  <tr>
+                <tr>
                   <td>
                     <input
                       type="number"
                       value={productAmount}
-                      onChange={(e) => setProductAmount(e.target.value)}
+                      onChange={handleProductAmountChange}
                       placeholder="Cantidad del producto"
                       style={{ marginTop: '30px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px' }}
-                    />            
+                    />
                   </td>
                   <td>
                     <input
                       type="number"
                       value={minimumAmount}
-                      onChange={(e) => setMinimumAmount(e.target.value)}
+                      onChange={handleMinimumAmountChange}
                       placeholder="Cantidad mínima"
                       style={{ marginTop: '30px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px' }}
-                    />            
+                    />
                   </td>
                   <td>
                     <input
                       type="number"
                       value={productPrice}
-                      onChange={(e) => setProductPrice(e.target.value)}
+                      onChange={handleProductPriceChange}
                       placeholder="Precio del producto"
                       style={{ marginTop: '30px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px' }}
-                    />            
+                    />
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div className="button-container">
-            <button onClick={handleSave} className="" type="button" style={{color:'white', marginTop: '20px', fontFamily: 'Allerta', background: 'rgba(0, 0, 0, 1)', borderWidth: '5px', borderColor: 'rgba(0, 0, 0, 1)', borderTopColor: 'rgba(0, 0, 0, 1)', borderRightColor: 'rgba(0, 0, 0, 1)', borderBottomColor: 'rgba(0, 0, 0, 1)', outline: 'none' }}>GUARDAR</button>
+            <button onClick={handleSave} className="" type="button" style={{ color: 'white', marginTop: '20px', fontFamily: 'Allerta', background: 'rgba(0, 0, 0, 1)', borderWidth: '5px', borderColor: 'rgba(0, 0, 0, 1)', borderTopColor: 'rgba(0, 0, 0, 1)', borderRightColor: 'rgba(0, 0, 0, 1)', borderBottomColor: 'rgba(0, 0, 0, 1)', outline: 'none' }}>GUARDAR</button>
           </div>
         </div>
       </div>

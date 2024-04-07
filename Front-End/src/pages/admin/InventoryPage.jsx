@@ -47,7 +47,7 @@ export default function InventoryPage() {
         "http://localhost:3000/addInventoryProduct",
         product
       );
-  
+
       console.log(response.data.message);
     } catch (error) {
       console.error("Error:", error);
