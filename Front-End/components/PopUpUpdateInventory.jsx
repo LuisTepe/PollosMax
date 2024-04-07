@@ -44,6 +44,12 @@ const AddProductPopup = ({ onClose, onSave }) => {
       setProductPrice('');
     }
   };
+  const handleKeyDown = (e) => {
+    // Prevenir la entrada del signo negativo  y positivo mediante el teclado
+    if (e.keyCode === 189 || e.keyCode === 187) {
+        e.preventDefault();
+    }
+};
 
   return (
     <div className="modal-container" id="modal">
@@ -110,6 +116,7 @@ const AddProductPopup = ({ onClose, onSave }) => {
                       type="number"
                       value={productAmount}
                       onChange={handleProductAmountChange}
+                      onKeyDown={handleKeyDown}
                       placeholder="Cantidad del producto"
                       style={{ marginTop: '30px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px' }}
                     />
@@ -119,6 +126,7 @@ const AddProductPopup = ({ onClose, onSave }) => {
                       type="number"
                       value={minimumAmount}
                       onChange={handleMinimumAmountChange}
+                      onKeyDown={handleKeyDown}
                       placeholder="Cantidad mínima"
                       style={{ marginTop: '30px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px' }}
                     />
@@ -127,6 +135,7 @@ const AddProductPopup = ({ onClose, onSave }) => {
                     <input
                       type="number"
                       value={productPrice}
+                      onKeyDown={handleKeyDown}
                       onChange={handleProductPriceChange}
                       placeholder="Precio del producto"
                       style={{ marginTop: '30px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px' }}

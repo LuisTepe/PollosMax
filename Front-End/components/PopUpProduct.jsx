@@ -48,9 +48,13 @@ const PopupProduct = ({ onClose, onConfirm, productName }) => {
         })
     }
 
+    /**
+     * 
+     * @param {Event} e 
+     */
     const handleKeyDown = (e) => {
         // Prevenir la entrada del signo negativo  y positivo mediante el teclado
-        if (e.keyCode === 189 && e.keyCode == 187) {
+        if (e.keyCode === 189 || e.keyCode === 187) {
             e.preventDefault();
         }
     };
