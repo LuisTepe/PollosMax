@@ -3,7 +3,6 @@ import axios from 'axios';
 import Sidebar from '../../../components/ResponsiveAppBar';
 import SearchBar from '../../../components/ProductHeader';
 import ProductSortingBar from '../../../components/ProductSorting';
-// import ProductList from '../../../components/ProductList';
 
 export default function ProductPage() {
   const [products, setProducts] = useState([]);
@@ -11,27 +10,49 @@ export default function ProductPage() {
   const [order, setOrder] = useState('asc');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-  // Obtener los productos desde el app.get del back
+  // Función para obtener la lista de productos desde el servidor
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/productssale'); 
-      setProducts(response.data); 
+      const response = await axios.get('http://localhost:3000/productssale');
+      return response.data;
     } catch (error) {
       console.error('Error fetching products:', error);
+      return [];
     }
   };
 
+  // Llamar a fetchProducts cuando se monte el componente y cuando cambie el estado de products
   useEffect(() => {
-    fetchProducts(); 
-  }, []); 
+    fetchProducts().then(data => setProducts(data));
+  }, [products]); 
 
-  // Funcion para ordenar lo que se reciba del back
+  // Función para agregar un nuevo producto
+  const addProduct = async (newProduct) => {
+    try {
+      const response = await axios.post('http://localhost:3000/insertProduct', newProduct);
+      console.log(response.data.message);
+    } catch (error) {
+      console.error('Error adding product:', error);
+      throw error;
+    }
+  };
+
+  const handleAddProduct = async (newProduct) => {
+    try {
+      await addProduct(newProduct);
+      // Después de agregar el producto, volvemos a llamar a fetchProducts para actualizar la lista de productos
+      const updatedProducts = await fetchProducts();
+      setProducts(updatedProducts);
+    } catch (error) {
+      console.error('Error adding product:', error);
+    }
+  };
+
+  // Función para ordenar los productos
   const handleSort = (field, newOrder) => {
-    // Cambiar el estado del campo activo y el orden
     setActiveField(field);
     setOrder(newOrder);
 
-    // Ordenar los productos según el campo y el orden
     const sortedProducts = [...products].sort((a, b) => {
       if (newOrder === 'asc') {
         return a[field] > b[field] ? 1 : -1;
@@ -40,7 +61,6 @@ export default function ProductPage() {
       }
     });
 
-    // Actualizar la lista de productos ordenados
     setProducts(sortedProducts);
   };
 
@@ -51,7 +71,7 @@ export default function ProductPage() {
       <div style={{ padding: '25px', marginLeft: '275px' }}>
         <SearchBar />
         <ProductSortingBar handleSort={handleSort} products={products} />
-        {/* <ProductList products={products} /> */}
+
       </div>
     </div>
   );

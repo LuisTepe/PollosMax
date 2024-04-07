@@ -1,4 +1,5 @@
 /* Barra de organización */
+
 .product-sorting-general {
   display: block;
   background-color: #d2aaf8; 
@@ -68,15 +69,13 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-input[type="number"] {
-  -moz-appearance: textfield;
-}
+
 
 /* Listado de productos */
 .product-table {
-  width: 100%;
-  border-collapse: separate; 
-  border-spacing: 0 1em; 
+  width: 100vm; /* Ajusta el ancho de la tabla para que ocupe todo el contenedor */
+  table-layout: fixed; /* Fija el ancho de las columnas para evitar que se expandan más allá del contenedor */
+  margin-top: 50px; /* Agrega un margen superior para dejar espacio para la barra de ordenamiento */
 }
 
 .product-table td {
@@ -114,16 +113,8 @@ input[type="number"] {
 }
 
 .product-list-container {
-  width: 100%; 
-  height: 100%; 
-  overflow-y: auto; 
-  overflow-x: auto; 
-  margin-right: 10px; 
-  scrollbar-width: thin; 
-  scrollbar-color: #888 #f4f4f4; 
-  scrollbar-gutter: 50px; 
-  position: relative;
-  top: 3em;
+  max-height: calc(100vh - 150px); /* Ajusta la altura máxima de la tabla para que ocupe el espacio restante en la ventana */
+  overflow-y: auto; /* Agrega desplazamiento vertical si el contenido excede la altura máxima */
 }
 
 
@@ -177,3 +168,19 @@ input[type="number"] {
   margin-left: 0.5em; 
 }
 
+
+
+.product-list-container::-webkit-scrollbar {
+  width: 5px; /* Ancho de la barra de desplazamiento */
+}
+
+/* Estilo de la barra de desplazamiento en sí */
+.product-list-container::-webkit-scrollbar-thumb {
+  background-color: #750863; /* Color del fondo de la barra de desplazamiento */
+  border-radius: 10px; /* Radio de borde de la barra de desplazamiento */
+}
+
+/* Estilo del riel de la barra de desplazamiento */
+.product-list-container::-webkit-scrollbar-track {
+  background-color: transparent; /* Color de fondo del riel de la barra de desplazamiento */
+}
