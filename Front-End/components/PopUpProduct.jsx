@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from 'react'
 import './PopUp.css';
 
-const PopupProduct = ({onClose, onConfirm, productName }) => {
+const PopupProduct = ({ onClose, onConfirm, productName }) => {
     const [color, setColor] = useState({
         color: 'rgba(0, 0, 0, 1)',
         borderColor: 'rgba(0, 0, 0, 1)',
@@ -15,7 +15,7 @@ const PopupProduct = ({onClose, onConfirm, productName }) => {
     function handleClick(e) {
         e.preventDefault();
         onConfirm(quantity);
-      }
+    }
 
     function handleMouseUp() {
         setColor({
@@ -47,6 +47,23 @@ const PopupProduct = ({onClose, onConfirm, productName }) => {
         })
     }
 
+    const handleKeyDown = (e) => {
+        // Prevenir la entrada del signo negativo  y positivo mediante el teclado
+        if (e.keyCode === 189 && e.keyCode == 187) {
+            e.preventDefault();
+        }
+    };
+
+    const handleQuantityChange = (e) => {
+        let value = e.target.value;
+        // Eliminar cualquier signo negativo (-) que se ingrese
+        value = value.replace(/-/g, '');
+        // Verificar si el valor es un número válido
+        if (!isNaN(value)) {
+            setQuantity(value);
+        }
+    };
+
     return (
         <div className="modal-container" id="modal">
             <div className="modal-content d-inline-flex justify-content-lg-center align-items-lg-center" style={{ background: 'rgb(251, 225, 147)', width: '400px', height: '550px', padding: '75px', borderRadius: '10px', border: '2px solid var(--bs-emphasis-color)', marginTop: '80px' }}>
@@ -64,7 +81,7 @@ const PopupProduct = ({onClose, onConfirm, productName }) => {
                     </div>
                     <div>
                         <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '10px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                        <input type="number" style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} onChange={e => setQuantity(e.target.value)} />
+                            <input type="number" min="0" style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} onChange={handleQuantityChange} onKeyDown={handleKeyDown} />
                         </div>
                     </div>
                     <div>
@@ -74,7 +91,7 @@ const PopupProduct = ({onClose, onConfirm, productName }) => {
                         <input type="text" style={{ color: 'black', background: 'rgba(255,255,255,0)', borderStyle: 'none', borderColor: 'rgba(194,186,186,0)', height: '95px', outline: 'none' }} />
                     </div>
                     <div>
-                        <button onClick={handleClick} className="btn btn-primary" type="button" style={{color:'white', marginTop: '20px', fontFamily: 'Allerta', background: color.color, borderWidth: '5px', borderColor: color.borderColor, borderTopColor: color.borderTopColor, borderRightColor: color.borderRightColor, borderBottomColor: color.borderBottomColor, outline: 'none' }} onMouseUp={handleMouseUp} onMouseDown={handleMouseDown} onMouseOver={handleHover} onMouseLeave={handleMouseUp}>AGREGAR AL CARRITO</button>
+                        <button onClick={handleClick} className="btn btn-primary" type="button" style={{ color: 'white', marginTop: '20px', fontFamily: 'Allerta', background: color.color, borderWidth: '5px', borderColor: color.borderColor, borderTopColor: color.borderTopColor, borderRightColor: color.borderRightColor, borderBottomColor: color.borderBottomColor, outline: 'none' }} onMouseUp={handleMouseUp} onMouseDown={handleMouseDown} onMouseOver={handleHover} onMouseLeave={handleMouseUp}>AGREGAR AL CARRITO</button>
                     </div>
                 </div>
             </div>
@@ -84,7 +101,7 @@ const PopupProduct = ({onClose, onConfirm, productName }) => {
 
 PopupProduct.propTypes = {
     onClose: PropTypes.func.isRequired,
-    onConfirm: PropTypes.func.isRequired, 
+    onConfirm: PropTypes.func.isRequired,
     productName: PropTypes.string.isRequired,
 };
 
