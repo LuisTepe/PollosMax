@@ -35,6 +35,13 @@ export default function MenuPage() {
 
   const handleSearchChange = async (event) => {
     const searchValue = event.target.value;
+
+    // Si la cadena no está vacía, verifica si es alfanumérica
+    if (searchValue && !/^[a-z0-9]+$/i.test(searchValue)) {
+      console.error('Only alphanumeric characters are allowed');
+      return;
+    }
+
     setSearch(searchValue);
 
     console.log(`Searching for: ${searchValue}`); // Imprime la consulta de búsqueda en la consola
@@ -193,12 +200,12 @@ export default function MenuPage() {
                   />
                 )}
                 {showPopupCompra && (
-                  <PopUpCompra 
-                    onClose={handleClosePopupCompra} 
+                  <PopUpCompra
+                    onClose={handleClosePopupCompra}
                     total={total}
                     onPago={handleClearTable}
                   />
-                
+
                 )}
               </div>
 
