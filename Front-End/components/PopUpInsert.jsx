@@ -3,69 +3,151 @@ import { useState } from 'react';
 import axios from 'axios';
 import './PopUpInsert.css';
 
-const PopupInsert = ({ onClose }) => {
-    const [color, setColor] = useState({
-        color: 'rgba(0, 0, 0, 1)',
-        borderColor: 'rgba(0, 0, 0, 1)',
-        borderTopColor: 'rgba(0, 0, 0, 1)',
-        borderRightColor: 'rgba(0, 0, 0, 1)',
-        borderBottomColor: 'rgba(0, 0, 0, 1)',
-    });
-
+async function fetchProducts() {
+    try {
+      const response = await axios.get("http://localhost:3000/products");
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      return [];
+    }
+  }
+  
+  async function addProduct(product) {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/insertProduct",
+        product
+      );
+      console.log(response.data.message);
+      return response.data;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
+  }
+  
+  const PopupInsert = ({ onClose }) => {
     const [productName, setProductName] = useState("");
     const [productType, setProductType] = useState("");
     const [productUnit, setProductUnit] = useState("");
     const [productPrice, setProductPrice] = useState("");
     const [currentAmount, setCurrentAmount] = useState("");
     const [minimumAmount, setMinimumAmount] = useState("");
-
-    function handleMouseUp() {
-        setColor({
-            color: 'rgba(0, 0, 0, 1)',
-            borderColor: 'rgba(0, 0, 0, 1)',
-            borderTopColor: 'rgba(0, 0, 0, 1)',
-            borderRightColor: 'rgba(0, 0, 0, 1)',
-            borderBottomColor: 'rgba(0, 0, 0, 1)',
-        })
-    }
-
-    function handleMouseDown() {
-        setColor({
-            color: 'rgba(30, 30, 30, 1)',
-            borderColor: 'rgba(30, 30, 30, 1)',
-            borderTopColor: 'rgba(30, 30, 30, 1)',
-            borderRightColor: 'rgba(30, 30, 30, 1)',
-            borderBottomColor: 'rgba(30, 30, 30, 1)',
-        })
-    }
-
-    function handleHover() {
-        setColor({
-            color: 'rgba(30, 30, 30, 1)',
-            borderColor: 'rgba(30, 30, 30, 1)',
-            borderTopColor: 'rgba(30, 30, 30, 1)',
-            borderRightColor: 'rgba(30, 30, 30, 1)',
-            borderBottomColor: 'rgba(30, 30, 30, 1)',
-        })
-    }
-
+  
+    const [color, setColor] = useState({
+      color: "rgba(0, 0, 0, 1)",
+      borderColor: "rgba(0, 0, 0, 1)",
+      borderTopColor: "rgba(0, 0, 0, 1)",
+      borderRightColor: "rgba(0, 0, 0, 1)",
+      borderBottomColor: "rgba(0, 0, 0, 1)",
+    });
+  
+    const handleMouseUp = () => {
+      setColor({
+        color: "rgba(0, 0, 0, 1)",
+        borderColor: "rgba(0, 0, 0, 1)",
+        borderTopColor: "rgba(0, 0, 0, 1)",
+        borderRightColor: "rgba(0, 0, 0, 1)",
+        borderBottomColor: "rgba(0, 0, 0, 1)",
+      });
+    };
+  
+    const handleMouseDown = () => {
+      setColor({
+        color: "rgba(30, 30, 30, 1)",
+        borderColor: "rgba(30, 30, 30, 1)",
+        borderTopColor: "rgba(30, 30, 30, 1)",
+        borderRightColor: "rgba(30, 30, 30, 1)",
+        borderBottomColor: "rgba(30, 30, 30, 1)",
+      });
+    };
+  
+    const handleHover = () => {
+      setColor({
+        color: "rgba(30, 30, 30, 1)",
+        borderColor: "rgba(30, 30, 30, 1)",
+        borderTopColor: "rgba(30, 30, 30, 1)",
+        borderRightColor: "rgba(30, 30, 30, 1)",
+        borderBottomColor: "rgba(30, 30, 30, 1)",
+      });
+    };
+  
     const handleAddProduct = async () => {
-        try {
-            // Realiza la solicitud de inserción al backend utilizando Axios
-            await axios.post('http://localhost:3000/insertProduct', {
-                productName,
-                productPrice,
-                productAmount: currentAmount,
-                idProductType: productType,
-                idUnit: productUnit,
-                minimumAmount
-            });
-            console.log("Producto insertado correctamente");
-            onClose(); // Cierra el popup después de agregar el producto
-        } catch (error) {
-            console.error("Error al insertar producto:", error);
+      try {
+        await addProduct({
+          productName,
+          productPrice,
+          productAmount: currentAmount,
+          idProductType: productType,
+          idUnit: productUnit,
+          minimumAmount,
+        });
+        console.log("Producto insertado correctamente");
+        onClose();
+  
+        // Obtener la lista actualizada de productos después de agregar uno nuevo
+        const updatedProducts = await fetchProducts();
+        // Actualizar la lista de productos en el componente
+        setProductName("");
+        setProductType("");
+        setProductUnit("");
+        setProductPrice("");
+        setCurrentAmount("");
+        setMinimumAmount("");
+      } catch (error) {
+        console.error("Error al insertar producto:", error);
+      }
+    };
+
+
+
+    const handleProductNameChange = (e) => {
+        const value = e.target.value;
+        // Solo permite letras y espacios en blanco
+        if (/^[a-zA-Z\s]*$/.test(value)) {
+            setProductName(value);
         }
     };
+
+    const handlePriceChange = (e) => {
+        let value = e.target.value;
+        // Permite solo números positivos y ajusta el valor máximo a 999999
+        if (value === '' || (/^\d*\.?\d*$/.test(value) && parseFloat(value) <= 999999)) {
+            setProductPrice(value);
+        }
+    };
+    
+    const handleCurrentAmountChange = (e) => {
+        let value = e.target.value;
+        // Permite solo números positivos y ajusta el valor máximo a 99999
+        if (value === '' || (/^\d*$/.test(value) && parseInt(value) <= 99999)) {
+            setCurrentAmount(value);
+        }
+    };
+    
+    const handleMinimumAmountChange = (e) => {
+        let value = e.target.value;
+        // Permite solo números positivos, ajusta el valor mínimo a 1 y el máximo a 99999
+        if (value === '' || (/^\d*$/.test(value) && parseInt(value) >= 1 && parseInt(value) <= 99999)) {
+            value = value === '' ? '' : Math.max(1, parseInt(value)); // Establece el valor mínimo en 1 si no está vacío
+            setMinimumAmount(value);
+        }
+    };
+    
+    
+    const handleKeyPress = (e) => {
+        // Evita la entrada de caracteres especiales y letras
+        if (!/^\d*$/.test(e.key)) {
+            e.preventDefault();
+        }
+    };
+    
+    const isFormValid = productName && productType && productUnit && productPrice && currentAmount && minimumAmount;
+    
+    
+
+
 
     return (
         <div className="modal-container" id="modal">
@@ -85,7 +167,7 @@ const PopupInsert = ({ onClose }) => {
                     </div>
                     <div>
                         <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="text" value={productName} onChange={(e) => setProductName(e.target.value)} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
+                            <input type="text" value={productName} onChange={handleProductNameChange} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
 
@@ -93,18 +175,31 @@ const PopupInsert = ({ onClose }) => {
                         <p style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Tipo de producto</p>
                     </div>
                     <div>
-                        <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="number" value={productType} onChange={(e) => setProductType(e.target.value)} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
-                        </div>
+                        <select
+                          value={productType}
+                          onChange={(e) => setProductType(e.target.value)}
+                          style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px', width: '330px', borderRadius: '5px', color: 'rgb(0,0,0)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)' }}
+                        >
+                          <option value="" disabled hidden>Selecciona el tipo de producto</option>
+                          <option value="1" style={{ color: 'rgb(0,0,0)' }}>Almacen</option>
+                          <option value="2" style={{ color: 'rgb(0,0,0)' }}>Comercial</option>
+                        </select>
                     </div>
 
                     <div style={{ marginTop: '10px' }}>
                         <p style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Tipo de unidad</p>
                     </div>
                     <div>
-                        <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="number" value={productUnit} onChange={(e) => setProductUnit(e.target.value)} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
-                        </div>
+                        <select
+                          value={productUnit}
+                          onChange={(e) => setProductUnit(e.target.value)}
+                          style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px', width: '330px', borderRadius: '5px', color: 'rgb(0,0,0)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)' }}
+                        >
+                          <option value="" disabled hidden >Selecciona la unidad</option>
+                          <option value="1" style={{ color: 'rgb(0,0,0)' }}>KG</option>
+                          <option value="2" style={{ color: 'rgb(0,0,0)' }}>Unidades</option>
+                          <option value="3" style={{ color: 'rgb(0,0,0)' }}>Piezas</option>
+                        </select>
                     </div>
 
                     <div style={{ marginTop: '10px' }}>
@@ -112,7 +207,7 @@ const PopupInsert = ({ onClose }) => {
                     </div>
                     <div>
                         <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="number" value={productPrice} onChange={(e) => setProductPrice(e.target.value)} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
+                            <input type="number" value={productPrice} onChange={handlePriceChange} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
 
@@ -121,7 +216,7 @@ const PopupInsert = ({ onClose }) => {
                     </div>
                     <div>
                         <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="number" value={currentAmount} onChange={(e) => setCurrentAmount(e.target.value)} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
+                            <input type="number" value={currentAmount} onChange={handleCurrentAmountChange} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
 
@@ -130,12 +225,34 @@ const PopupInsert = ({ onClose }) => {
                     </div>
                     <div>
                         <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="number" value={minimumAmount} onChange={(e) => setMinimumAmount(e.target.value)} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
+                            <input type="number" value={minimumAmount} onChange={handleMinimumAmountChange} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
 
                     <div>
-                        <button onClick={handleAddProduct} className="btn btn-primary" type="button" style={{ marginTop: '20px', fontFamily: 'Allerta', background: color.color, borderWidth: '5px', borderColor: color.borderColor, borderTopColor: color.borderTopColor, borderRightColor: color.borderRightColor, borderBottomColor: color.borderBottomColor, outline: 'none' }} onMouseUp={handleMouseUp} onMouseDown={handleMouseDown} onMouseOver={handleHover} onMouseLeave={handleMouseUp}>Agregar</button>
+                    <button
+    onClick={handleAddProduct}
+    disabled={!isFormValid}
+    className="btn btn-primary"
+    type="button"
+    style={{
+        marginTop: '20px',
+        fontFamily: 'Allerta',
+        background: color.color,
+        borderWidth: '5px',
+        borderColor: color.borderColor,
+        borderTopColor: color.borderTopColor,
+        borderRightColor: color.borderRightColor,
+        borderBottomColor: color.borderBottomColor,
+        outline: 'none'
+    }}
+    onMouseUp={handleMouseUp}
+    onMouseDown={handleMouseDown}
+    onMouseOver={handleHover}
+    onMouseLeave={handleMouseUp}
+>
+    Agregar
+</button>
                     </div>
                 </div>
             </div>
@@ -147,5 +264,3 @@ PopupInsert.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 export default PopupInsert;
-
-//Este es un comentario

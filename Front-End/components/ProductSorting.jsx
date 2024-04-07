@@ -123,6 +123,7 @@ function ProductSortingBar({ handleSort, products }) {
          </button>
        </div>
        {isDeletePopupOpen && <PopupDelete onClose={() => setIsDeletePopupOpen(false)} />}
+       
        {isInsertPopupOpen && <PopupInsert onClose={() => setIsInsertPopupOpen(false)} />}
          {isEditPopupOpen && <PopupUpdate onClose={() => setIsEditPopupOpen(false)} idProduct={activeProductId} />}
       </div>
