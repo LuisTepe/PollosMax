@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import { useState } from 'react'
 import './PopUpUpdateInventory.css';
+import { handleKeyDownForNumericInputs, handleValueForNumericInputs } from "../src/helpers/InputCheckers";
+
 
 const AddProductPopup = ({ onClose, onSave }) => {
   const [idProductType, setIdProductType] = useState("");
@@ -14,42 +16,6 @@ const AddProductPopup = ({ onClose, onSave }) => {
     onSave({ idProductType, idUnit, productName, productAmount, minimumAmount, productPrice });
     onClose();
   };
-
-  const handleProductAmountChange = (e) => {
-    setProductAmount('');
-    const value = Number(e.target.value);
-    if (!isNaN(value) && value >= 0) {
-      setProductAmount(value);
-    } else {
-      setProductAmount('');
-    }
-  };
-
-  const handleMinimumAmountChange = (e) => {
-    setMinimumAmount('');
-    const value = Number(e.target.value);
-    if (!isNaN(value) && value >= 0) {
-      setMinimumAmount(value);
-    } else {
-      setMinimumAmount('');
-    }
-  };
-
-  const handleProductPriceChange = (e) => {
-    setProductPrice('');
-    const value = Number(e.target.value);
-    if (!isNaN(value) && value >= 0) {
-      setProductPrice(value);
-    } else {
-      setProductPrice('');
-    }
-  };
-  const handleKeyDown = (e) => {
-    // Prevenir la entrada del signo negativo  y positivo mediante el teclado
-    if (e.keyCode === 189 || e.keyCode === 187) {
-        e.preventDefault();
-    }
-};
 
   return (
     <div className="modal-container" id="modal">
@@ -114,9 +80,9 @@ const AddProductPopup = ({ onClose, onSave }) => {
                   <td>
                     <input
                       type="number"
-                      value={productAmount}
-                      onChange={handleProductAmountChange}
-                      onKeyDown={handleKeyDown}
+                      value={productAmount? productAmount : ''}
+                      onChange={(e) => handleValueForNumericInputs(e, setProductAmount, productAmount)}
+                      onKeyDown={handleKeyDownForNumericInputs}
                       placeholder="Cantidad del producto"
                       style={{ marginTop: '30px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px' }}
                     />
@@ -124,9 +90,9 @@ const AddProductPopup = ({ onClose, onSave }) => {
                   <td>
                     <input
                       type="number"
-                      value={minimumAmount}
-                      onChange={handleMinimumAmountChange}
-                      onKeyDown={handleKeyDown}
+                      value={minimumAmount? minimumAmount : ''}
+                      onChange={(e) => handleValueForNumericInputs(e, setMinimumAmount, minimumAmount)}
+                      onKeyDown={handleKeyDownForNumericInputs}
                       placeholder="Cantidad mínima"
                       style={{ marginTop: '30px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px' }}
                     />
@@ -134,9 +100,9 @@ const AddProductPopup = ({ onClose, onSave }) => {
                   <td>
                     <input
                       type="number"
-                      value={productPrice}
-                      onKeyDown={handleKeyDown}
-                      onChange={handleProductPriceChange}
+                      value={productPrice? productPrice : ''}
+                      onKeyDown={handleKeyDownForNumericInputs}
+                      onChange={(e) => handleValueForNumericInputs(e, setProductPrice, productPrice)}
                       placeholder="Precio del producto"
                       style={{ marginTop: '30px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px' }}
                     />

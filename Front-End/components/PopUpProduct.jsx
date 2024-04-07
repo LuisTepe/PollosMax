@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from 'react'
 import './PopUp.css';
+import { handleKeyDownForNumericInputs, handleValueForNumericInputs } from "../src/helpers/InputCheckers";
 
 const PopupProduct = ({ onClose, onConfirm, productName }) => {
     const [color, setColor] = useState({
@@ -47,29 +48,7 @@ const PopupProduct = ({ onClose, onConfirm, productName }) => {
             borderBottomColor: 'rgba(30, 30, 30, 1)',
         })
     }
-
-    /**
-     * 
-     * @param {Event} e 
-     */
-    const handleKeyDown = (e) => {
-        // Prevenir la entrada del signo negativo  y positivo mediante el teclado
-        if (e.keyCode === 189 || e.keyCode === 187) {
-            e.preventDefault();
-        }
-    };
-
-    const handleQuantityChange = (e) => {
-        setQuantity('')
-        const value = Number(e.target.value);
-        // Verificar si el valor es un número válido
-        if (!isNaN(value) && value >= 0) {
-            setQuantity(value);
-        }else{
-            setQuantity('')
-        }
-    };
-
+   
     return (
         <div className="modal-container" id="modal">
             <div className="modal-content d-inline-flex justify-content-lg-center align-items-lg-center" style={{ background: 'rgb(251, 225, 147)', width: '400px', height: '550px', padding: '75px', borderRadius: '10px', border: '2px solid var(--bs-emphasis-color)', marginTop: '80px' }}>
@@ -91,9 +70,9 @@ const PopupProduct = ({ onClose, onConfirm, productName }) => {
                             type="number" 
                             min="0" 
                             style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} 
-                            value = {QuantityChange}
-                            onChange={handleQuantityChange} 
-                            onKeyDown={handleKeyDown} />
+                            value = {QuantityChange? QuantityChange : ''}
+                            onChange={(e) => handleValueForNumericInputs(e, setQuantity, QuantityChange)} 
+                            onKeyDown={handleKeyDownForNumericInputs} />
                         </div>
                     </div>
                     <div>
