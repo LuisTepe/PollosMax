@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'; 
 import Sidebar from '../../../components/ResponsiveAppBar';
 import SearchBar from '../../../components/ProductHeader';
-import ProductSortingBar from '../../../components/ProductSorting';
+import ProductSortingBar from '../../../components/ProductSortingUser';
 // import ProductList from '../../../components/ProductList';
 
 export default function ProductPage() {

@@ -152,7 +152,7 @@ app.post('/insertProduct', async (req, res) => {
 app.put('/updateProduct/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { productName, productPrice, productAmount } = req.body;
+    const { productName, productPrice, productAmount} = req.body;
 
     if (!productName || !productPrice || !productAmount) {
       return res.status(400).json({ message: 'Todos los campos son obligatorios.' });
