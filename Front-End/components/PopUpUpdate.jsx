@@ -4,7 +4,7 @@ import axios from 'axios';
 import './PopUpUpdate.css';
 import ProductSortingBar from "./ProductSorting";
 
-const PopupUpdate = ({ onClose, idProduct }) => {
+const PopupUpdate = ({ onClose, idProduct, product }) => {
     const [color, setColor] = useState({
         color: 'rgba(0, 0, 0, 1)',
         borderColor: 'rgba(0, 0, 0, 1)',
@@ -13,46 +13,46 @@ const PopupUpdate = ({ onClose, idProduct }) => {
         borderBottomColor: 'rgba(0, 0, 0, 1)',
     });
 
-    const [productName, setProductName] = useState("");
-    const [productPrice, setProductPrice] = useState("");
-    const [productAmount, setProductAmount] = useState("");
+    const [productName, setProductName] = useState(product.productName || "");
+    const [productPrice, setProductPrice] = useState(product.productPrice || "");
+    const [productAmount, setProductAmount] = useState(product.productAmount || "");
 
-    function handleMouseUp() {
+    const handleMouseUp = () => {
         setColor({
             color: 'rgba(0, 0, 0, 1)',
             borderColor: 'rgba(0, 0, 0, 1)',
             borderTopColor: 'rgba(0, 0, 0, 1)',
             borderRightColor: 'rgba(0, 0, 0, 1)',
             borderBottomColor: 'rgba(0, 0, 0, 1)',
-        })
-    }
+        });
+    };
 
-    function handleMouseDown() {
+    const handleMouseDown = () => {
         setColor({
             color: 'rgba(30, 30, 30, 1)',
             borderColor: 'rgba(30, 30, 30, 1)',
             borderTopColor: 'rgba(30, 30, 30, 1)',
             borderRightColor: 'rgba(30, 30, 30, 1)',
             borderBottomColor: 'rgba(30, 30, 30, 1)',
-        })
-    }
+        });
+    };
 
-    function handleHover() {
+    const handleHover = () => {
         setColor({
             color: 'rgba(30, 30, 30, 1)',
             borderColor: 'rgba(30, 30, 30, 1)',
             borderTopColor: 'rgba(30, 30, 30, 1)',
             borderRightColor: 'rgba(30, 30, 30, 1)',
             borderBottomColor: 'rgba(30, 30, 30, 1)',
-        })
-    }
+        });
+    };
 
     const handleUpdateProduct = async () => {
         try {
             await axios.put(`http://localhost:3000/updateProduct/${idProduct}`, {
                 productName,
                 productPrice,
-                productAmount
+                productAmount,
             });
             console.log("Producto actualizado correctamente");
             onClose(); // Cierra el popup después de actualizar el producto
@@ -60,6 +60,23 @@ const PopupUpdate = ({ onClose, idProduct }) => {
             console.error("Error al actualizar producto:", error);
         }
     };
+
+    const handleProductNameChange = (e) => {
+        const value = e.target.value;
+        setProductName(value);
+    };
+
+    const handlePriceChange = (e) => {
+        const value = e.target.value;
+        setProductPrice(value);
+    };
+
+    const handleCurrentAmountChange = (e) => {
+        const value = e.target.value;
+        setProductAmount(value);
+    };
+
+    const isFormValid = productName && productPrice && productAmount;
 
     return (
         <div className="modal-container" id="modal">
@@ -88,28 +105,30 @@ const PopupUpdate = ({ onClose, idProduct }) => {
                     </div>
                     <div>
                         <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="text" value={productName} onChange={(e) => setProductName(e.target.value)} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
+                            <input type="text" value={productName} onChange={handleProductNameChange} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
+
                     <div style={{ marginTop: '30px' }}>
                         <p style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Precio</p>
                     </div>
                     <div>
                         <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="number" value={productPrice} onChange={(e) => setProductPrice(e.target.value)} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
+                            <input type="number" value={productPrice} onChange={handlePriceChange} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
+
                     <div style={{ marginTop: '30px' }}>
                         <p style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Cantidad actual en almacén</p>
                     </div>
                     <div>
                         <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="number" value={productAmount} onChange={(e) => setProductAmount(e.target.value)} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
+                            <input type="number" value={productAmount} onChange={handleCurrentAmountChange} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
 
                     <div>
-                        <button onClick={handleUpdateProduct} className="btn btn-primary" type="button" style={{ marginTop: '20px', fontFamily: 'Allerta', background: color.color, borderWidth: '5px', borderColor: color.borderColor, borderTopColor: color.borderTopColor, borderRightColor: color.borderRightColor, borderBottomColor: color.borderBottomColor, outline: 'none' }} onMouseUp={handleMouseUp} onMouseDown={handleMouseDown} onMouseOver={handleHover} onMouseLeave={handleMouseUp}>Actualizar</button>
+                        <button onClick={handleUpdateProduct} disabled={!isFormValid} className="btn btn-primary" type="button" style={{ marginTop: '20px', fontFamily: 'Allerta', background: color.color, borderWidth: '5px', borderColor: color.borderColor, borderTopColor: color.borderTopColor, borderRightColor: color.borderRightColor, borderBottomColor: color.borderBottomColor, outline: 'none' }} onMouseUp={handleMouseUp} onMouseDown={handleMouseDown} onMouseOver={handleHover} onMouseLeave={handleMouseUp}>Actualizar</button>
                     </div>
                 </div>
             </div>

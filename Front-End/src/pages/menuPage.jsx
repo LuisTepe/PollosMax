@@ -1,16 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './menuPage.css';
 import Sidebar from '../../components/ResponsiveAppBar';
 import PopupProduct from '../../components/PopUpProduct';
 import PopUpCompra from '../../components/PopUpCompra';
+import { getLoggedInUser } from './LoginPage';
 
 export default function MenuPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [products, setProducts] = useState([]);
+  const [productAmounts, setProductAmounts] = useState([]);
   const [tableProducts, setTableProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showPopupCompra, setShowPopupCompra] = useState(false);
+  const user = getLoggedInUser();
 
   const [color, setColor] = useState({
     color: 'rgba(117, 42, 116, 1)',
@@ -19,8 +22,27 @@ export default function MenuPage() {
   const [search, setSearch] = useState('');
   const [showPopupProduct, setShowPopupProduct] = useState(false);
 
+  const [searchResults, setSearchResults] = useState([]);
+  useEffect(() => {
+    async function fetchProducts() {
+      // ...
+      setProducts(products);
+      setSearchResults(products); // Inicializa searchResults con todos los productos
+    }
+
+    fetchProducts();
+  }, []);
+
   function handleOpenPopupProduct(product) {
     setSelectedProduct(product);
+
+    const productAmount = Number(product.productAmount);
+    if (Number.isFinite(productAmount)) {
+      setProductAmounts([productAmount]); // Establece productAmounts como un array que contiene productAmount
+    } else {
+      console.error('Error: productAmount is not a number:', product.productAmount);
+    }
+
     setShowPopupProduct(true);
   }
 
@@ -29,9 +51,16 @@ export default function MenuPage() {
     setShowPopupProduct(false);
   };
 
-  // Filtra los productos basado en la búsqueda
-  // Asumiendo que `product` es un objeto con una propiedad `productName` que es una cadena
-  const filteredProducts = products.filter(product => product.productName.toLowerCase().includes(search.toLowerCase()));
+  const filteredProducts = searchResults.filter(product => {
+    // Comprueba si product y productName existen antes de llamar a toLowerCase()
+    const nameMatch = product && product.productName && product.productName.toLowerCase().includes(search.toLowerCase());
+
+    // Comprueba si product y productAmount existen, luego convierte productAmount a una cadena y comprueba si coincide con la búsqueda
+    const amountMatch = product && product.productAmount && product.productAmount.toString().includes(search);
+
+    // Devuelve true si cualquiera de las condiciones es verdadera
+    return nameMatch || amountMatch;
+  });
 
   const handleSearchChange = async (event) => {
     const searchValue = event.target.value;
@@ -49,7 +78,12 @@ export default function MenuPage() {
     // Llama a tu API cuando el valor de búsqueda cambia
     try {
       const response = await axios.post('http://localhost:3000/search', { search: searchValue });
-      setProducts(response.data);
+      const products = response.data.map(item => ({
+        productName: item.productName,
+        productAmount: item.productAmount
+      }));
+      console.log('Products:', products);
+      setSearchResults(products); // Actualiza searchResults con los productos encontrados
     } catch (error) {
       console.error('Error:', error);
     }
@@ -111,9 +145,81 @@ export default function MenuPage() {
     setShowPopupCompra(false); // Cierra el popup de compra
   }
 
+  async function handleCompra() {
+    setShowPopupCompra(false); // Cierra el popup de compra
+
+    var usuario;
+    console.log(user);
+    if (user === 'admin') {
+      usuario = 1;
+    } else if (user === 'user') {
+      usuario = 2;
+    } else {
+      console.log(user);
+      console.error('Error al registrar la venta:', 'No se pudo obtener el tipo de usuario');
+      return;
+    }
+
+    // Itera sobre los productos en la tabla
+    for (const tableProduct of tableProducts) {
+      // Verifica si quantity es un número
+      if (!Number.isFinite(tableProduct.quantity)) {
+        console.error('Error: quantity is not a number for', tableProduct.productName);
+        continue;
+      }
+
+      try {
+        // Busca el producto en la base de datos para obtener productAmount
+        const response = await axios.post('http://localhost:3000/search', { search: tableProduct.productName });
+        const product = response.data[0];
+
+        // Verifica si productAmount es un número
+        const productAmount = Number(product.productAmount);
+        if (!Number.isFinite(productAmount)) {
+          console.error('Error: productAmount is not a number for', tableProduct.productName);
+          continue;
+        }
+
+        // Calcula el nuevo productAmount
+        const newProductAmount = product.productAmount - tableProduct.quantity;
+
+        // Verifica si newProductAmount es un número no negativo
+        if (!Number.isFinite(newProductAmount) || newProductAmount < 0) {
+          console.error('Error: newProductAmount is not a valid number for', tableProduct.productName);
+          continue;
+        }
+
+        // Actualiza la base de datos
+        await axios.put('http://localhost:3000/updateProductAmount', {
+          idProduct: product.idProduct,
+          productAmount: newProductAmount
+        });
+        console.log('Product amount updated successfully for', tableProduct.productName);
+
+        console.log('Product:', product);
+        // Inserta un registro en la base de datos
+        await axios.post('http://localhost:3000/insertProductChange', {
+          idUser: usuario,
+          idProduct: product.idProduct,
+          idChangeType: 2, // idChangeType 2 es para Update
+        });
+        console.log('Product change inserted successfully for', tableProduct.productName);
+
+
+      } catch (error) {
+        console.error('Error updating product amount for', tableProduct.productName, ':', error);
+      }
+    }
+
+    // Limpia los productos de la tabla después de la compra
+    await handleSearchChange({ target: { value: '' } });
+    handleClearTable();
+  }
   // Calcular el total
   const total = tableProducts.reduce((sum, product) => sum + (product.price * product.quantity), 0);
   const roundedTotal = Math.ceil(total);
+
+  const productAmount = productAmounts[0];
 
   return (
     <div className='d-flex' style={{ background: '#faf0d2', position: 'initial', flexWrap: 'wrap' }}>
@@ -197,13 +303,14 @@ export default function MenuPage() {
                     onClose={handleClosePopupProduct}
                     onConfirm={handleConfirm}
                     productName={selectedProduct.productName}
+                    productAmount={productAmount}
                   />
                 )}
                 {showPopupCompra && (
                   <PopUpCompra
                     onClose={handleClosePopupCompra}
                     total={total}
-                    onPago={handleClearTable}
+                    onCompra={handleCompra}
                   />
 
                 )}

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from 'react';
-import axios from 'axios'; // Importa Axios
+import axios from 'axios';
 
 const PopupDelete = ({ onClose }) => {
     const [color, setColor] = useState({
@@ -10,9 +10,9 @@ const PopupDelete = ({ onClose }) => {
         borderRightColor: 'rgba(0, 0, 0, 1)',
         borderBottomColor: 'rgba(0, 0, 0, 1)',
     });
-    const [productId, setProductId] = useState(""); // Agrega un estado para el ID del producto
+    const [productId, setProductId] = useState(""); // Estado para el ID del producto
 
-    function handleMouseUp() {
+    const handleMouseUp = () => {
         setColor({
             color: 'rgba(0, 0, 0, 1)',
             borderColor: 'rgba(0, 0, 0, 1)',
@@ -20,9 +20,9 @@ const PopupDelete = ({ onClose }) => {
             borderRightColor: 'rgba(0, 0, 0, 1)',
             borderBottomColor: 'rgba(0, 0, 0, 1)',
         });
-    }
+    };
 
-    function handleMouseDown() {
+    const handleMouseDown = () => {
         setColor({
             color: 'rgba(30, 30, 30, 1)',
             borderColor: 'rgba(30, 30, 30, 1)',
@@ -30,9 +30,9 @@ const PopupDelete = ({ onClose }) => {
             borderRightColor: 'rgba(30, 30, 30, 1)',
             borderBottomColor: 'rgba(30, 30, 30, 1)',
         });
-    }
+    };
 
-    function handleHover() {
+    const handleHover = () => {
         setColor({
             color: 'rgba(30, 30, 30, 1)',
             borderColor: 'rgba(30, 30, 30, 1)',
@@ -40,16 +40,24 @@ const PopupDelete = ({ onClose }) => {
             borderRightColor: 'rgba(30, 30, 30, 1)',
             borderBottomColor: 'rgba(30, 30, 30, 1)',
         });
-    }
+    };
 
     const handleDelete = async () => {
         try {
-            // Realiza la solicitud de eliminación al backend utilizando Axios
             await axios.delete(`http://localhost:3000/deleteProduct/${productId}`);
             console.log("Producto eliminado correctamente");
             onClose(); // Cierra el popup después de eliminar el producto
         } catch (error) {
             console.error("Error al eliminar producto:", error);
+        }
+    };
+
+    const isFormValid = productId !== ""; // Verifica si el ID del producto está completo
+
+    const handleInputChange = (e) => {
+        // Evita que se ingrese el símbolo negativo
+        if (e.keyCode === 189 || e.keyCode === 69) {
+            e.preventDefault();
         }
     };
 
@@ -71,12 +79,12 @@ const PopupDelete = ({ onClose }) => {
                     </div>
                     <div>
                         <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '10px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="number" value={productId} onChange={(e) => setProductId(e.target.value)} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
+                            <input type="number" value={productId} onChange={(e) => setProductId(e.target.value)} onKeyDown={handleInputChange} min="0" style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
 
                     <div>
-                        <button onClick={handleDelete} className="btn btn-primary" type="button" style={{ marginTop: '20px', fontFamily: 'Allerta', background: color.color, borderWidth: '5px', borderColor: color.borderColor, borderTopColor: color.borderTopColor, borderRightColor: color.borderRightColor, borderBottomColor: color.borderBottomColor, outline: 'none' }} onMouseUp={handleMouseUp} onMouseDown={handleMouseDown} onMouseOver={handleHover} onMouseLeave={handleMouseUp}>Eliminar</button>
+                        <button onClick={handleDelete} disabled={!isFormValid} className="btn btn-primary" type="button" style={{ marginTop: '20px', fontFamily: 'Allerta', background: color.color, borderWidth: '5px', borderColor: color.borderColor, borderTopColor: color.borderTopColor, borderRightColor: color.borderRightColor, borderBottomColor: color.borderBottomColor, outline: 'none' }} onMouseUp={handleMouseUp} onMouseDown={handleMouseDown} onMouseOver={handleHover} onMouseLeave={handleMouseUp}>Eliminar</button>
                     </div>
                 </div>
             </div>

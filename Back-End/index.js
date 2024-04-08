@@ -152,7 +152,7 @@ app.post('/insertProduct', async (req, res) => {
 app.put('/updateProduct/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { productName, productPrice, productAmount } = req.body;
+    const { productName, productPrice, productAmount} = req.body;
 
     if (!productName || !productPrice || !productAmount) {
       return res.status(400).json({ message: 'Todos los campos son obligatorios.' });
@@ -193,7 +193,7 @@ app.delete('/deleteProduct/:id', async (req, res) => {
 app.post('/search', async (req, res) => {
   try {
     const { search } = req.body;
-    const query = `SELECT productName FROM product WHERE productName LIKE ? AND idProductType = 2;`;
+    const query = `SELECT idProduct, productName, productAmount FROM product WHERE productName LIKE ? AND idProductType = 2;`;
     const [result] = await db.query(query, [`%${search}%`]);
 
     res.status(200).json(result);
@@ -231,6 +231,52 @@ app.get('/productssale', async(req,res) =>{
 
   } catch (error) {
     console.error("Error al obtener productos:", error);
+    res.status(500).json({ message: "Error en la base de datos" });
+  }
+});
+
+app.post('/transaction', async (req, res) => {
+  try {
+      const {idUser, idMovementType, totalPrice } = req.body;
+
+      const query = `INSERT INTO transaction(idUser, idMovementType, date, time, totalPrice) VALUES (?, ?, NOW(), NOW(), ?)`;
+
+      await db.query(query, [idUser, idMovementType, totalPrice]);
+
+      res.status(200).json({ message: "Transacción registrada con éxito" });
+  } catch (error) {
+      console.error("Error al registrar la transacción:", error);
+      res.status(500).json({ message: "Error en la base de datos" });
+  }
+});
+
+//update product amount
+app.put('/updateProductAmount', async (req, res) => {
+  try {
+      const { idProduct, productAmount } = req.body;
+
+      const query = `UPDATE product SET productAmount = ? WHERE idProduct = ?`;
+
+      await db.query(query, [productAmount, idProduct]);
+
+      res.status(200).json({ message: "Producto actualizado con éxito" });
+  } catch (error) {
+      console.error("Error al actualizar el producto:", error);
+      res.status(500).json({ message: "Error en la base de datos" });
+  }
+});
+
+app.post('/insertProductChange', async (req, res) => {
+  try {
+    const { idProductChange, idUser, idProduct, idChangeType, date, time } = req.body;
+
+    const query = `INSERT INTO productchange(idUser, idProduct, idChangeType, date, time) VALUES (?, ?, ?, NOW(), NOW())`;
+
+    await db.query(query, [idUser, idProduct, idChangeType]);
+
+    res.status(200).json({ message: "Cambio de producto insertado con éxito" });
+  } catch (error) {
+    console.error("Error al insertar el cambio de producto:", error);
     res.status(500).json({ message: "Error en la base de datos" });
   }
 });

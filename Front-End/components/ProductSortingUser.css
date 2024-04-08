@@ -68,9 +68,7 @@
     margin: 0;
   }
   
-  input[type="number"] {
-    -moz-appearance: textfield;
-  }
+
   
   /* Listado de productos */
   .product-table {

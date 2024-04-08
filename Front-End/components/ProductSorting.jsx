@@ -124,7 +124,15 @@ function ProductSortingBar({ handleSort, products }) {
        </div>
        {isDeletePopupOpen && <PopupDelete onClose={() => setIsDeletePopupOpen(false)} />}
        {isInsertPopupOpen && <PopupInsert onClose={() => setIsInsertPopupOpen(false)} />}
-         {isEditPopupOpen && <PopupUpdate onClose={() => setIsEditPopupOpen(false)} idProduct={activeProductId} />}
+       {isEditPopupOpen && (
+  <PopupUpdate
+    onClose={() => setIsEditPopupOpen(false)}
+    idProduct={activeProductId} // Pasar el ID del producto activo
+    product={products.find(product => product.idProduct === activeProductId)} // Encontrar el producto correspondiente al ID activo
+  />
+)}
+
+
       </div>
 
       
