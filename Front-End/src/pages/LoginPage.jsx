@@ -5,6 +5,15 @@ import './LoginPage.css'
 import useUser from '../useUser';
 import Popup from '../../components/PopUp';
 
+export function getLoggedInUser() {
+  const userInfo = sessionStorage.getItem('userInfo');
+  if (userInfo) {
+    return JSON.parse(userInfo).username;
+  } else {
+    return null;
+  }
+}
+
 export default function LoginPage() {
   const nav = useNavigate();
   const [password, setPassStyle] = useState('password')
