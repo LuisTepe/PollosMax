@@ -3,8 +3,10 @@ import { useState } from 'react'
 import './PopUp.css';
 import PopupPay from './PopUpPay';
 import Popup from './PopUp';
+import axios from 'axios';
+import { getLoggedInUser } from '../src/pages/LoginPage';
 
-export default function PopUpCompra ({ onClose, total, onPago }) {
+export default function PopUpCompra ({ onClose, total, onCompra}) {
     const [color, setColor] = useState({
         color: 'rgba(0, 0, 0, 1)',
         borderColor: 'rgba(0, 0, 0, 1)',
@@ -21,6 +23,7 @@ export default function PopUpCompra ({ onClose, total, onPago }) {
     const [popupMessageFail, setPopupMessageFail] = useState('');
     const [popupImageFail, setPopupImageFail] = useState('');
     const [showPopupFail, setShowPopupFail] = useState(false);
+    const user = getLoggedInUser();
 
     const handleButtonClick = (buttonName) => {
         setSelectedButton(buttonName);
@@ -71,12 +74,19 @@ export default function PopUpCompra ({ onClose, total, onPago }) {
 
     const handlePago = async () => {
         if (selectedButton === 'Efectivo') {
+            if (quantity === null || quantity === 0) {
+                setPopupImageFail("../src/assets/img/error.png");
+                setPopupMessageFail('Por favor, introduzca una cantidad válida');
+                setShowPopupFail(true);
+                return; // No continuar con el pago si la cantidad es inválida
+            }
             if (quantity >= total) {
                 const change = quantity - total;
                 setPopupImage("../src/assets/img/success.png");
                 setPopupMessage('Pago exitoso, su cambio es de ' + change.toFixed(2) + ' pesos');
                 setShowPopup(true);
-                console.log(`El cambio es: ${change}`);      
+                console.log(`El cambio es: ${change}`);
+                registrarVenta(2);   
                 // Aquí puedes hacer algo con el cambio, como mostrarlo en la interfaz de usuario
             } else {
                 setPopupImageFail("../src/assets/img/error.png");
@@ -86,16 +96,38 @@ export default function PopUpCompra ({ onClose, total, onPago }) {
                 return; // No continuar con el pago si la cantidad es menor que el costo total
             }
         }
-
-
-
-        onPago();
     }
 
+    async function registrarVenta(metodoPago) {
+        var usuario;
+        console.log(user);
+        if(user === 'admin') {
+            usuario = 1;
+        } else if (user === 'user') {
+            usuario = 2;
+        } else {
+            console.log(user);
+            console.error('Error al registrar la venta:', 'No se pudo obtener el tipo de usuario');
+            return;
+        }
+    
+        // Aquí puedes registrar la venta en la base de datos
+        try {
+            const response = await axios.post('http://localhost:3000/transaction', {
+                idUser: usuario, // Reemplaza esto con la variable que contiene si el usuario es admin o user
+                idMovementType: metodoPago,
+                totalPrice: total,
+            });
+    
+            console.log('Venta registrada:', response.data);
+        } catch (error) {
+            console.error('Error al registrar la venta:', error);
+        }
+    }
 
     const handleClosePopup = () => {
         setShowPopup(false);
-        onClose();
+        onCompra();
       }
     
     const handleClosePopupFail = () => {
@@ -147,5 +179,5 @@ export default function PopUpCompra ({ onClose, total, onPago }) {
 PopUpCompra.propTypes = {
     onClose: PropTypes.func.isRequired,
     total: PropTypes.number.isRequired,
-    onPago: PropTypes.func.isRequired,
+    onCompra: PropTypes.func.isRequired,
 };
