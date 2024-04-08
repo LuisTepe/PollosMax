@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
 import { useState } from 'react'
 import './PopUp.css';
+import { handleKeyDownForNumericInputs, handleValueForNumericInputs } from "../src/helpers/InputCheckers";
 
-const PopupProduct = ({ onClose, onConfirm, productName, productAmount }) => {
+const PopupProduct = ({ onClose, onConfirm, productName, productAmount}) => {
     const [color, setColor] = useState({
         color: 'rgba(0, 0, 0, 1)',
         borderColor: 'rgba(0, 0, 0, 1)',
@@ -10,8 +11,8 @@ const PopupProduct = ({ onClose, onConfirm, productName, productAmount }) => {
         borderRightColor: 'rgba(0, 0, 0, 1)',
         borderBottomColor: 'rgba(0, 0, 0, 1)',
     })
+    const [quantity, setQuantity] = useState("");
 
-    const [quantity, setQuantity] = useState(0);
     function handleClick(e) {
         e.preventDefault();
         const numQuantity = Number(quantity);
@@ -19,6 +20,7 @@ const PopupProduct = ({ onClose, onConfirm, productName, productAmount }) => {
             onConfirm(numQuantity);
         }
     }
+
 
     function handleMouseUp() {
         setColor({
@@ -49,11 +51,11 @@ const PopupProduct = ({ onClose, onConfirm, productName, productAmount }) => {
             borderBottomColor: 'rgba(30, 30, 30, 1)',
         })
     }
-
+   
     return (
         <div className="modal-container" id="modal">
             <div className="modal-content d-inline-flex justify-content-lg-center align-items-lg-center" style={{ background: 'rgb(251, 225, 147)', width: '400px', height: '550px', padding: '75px', borderRadius: '10px', border: '2px solid var(--bs-emphasis-color)', marginTop: '80px' }}>
-                <div style={{ width: '350px', textAlign: 'center', height: '550px' }}>
+                <div style={{ width: '350px', textAlign: 'center', height: '500px' }}>
                     <div className="d-lg-flex justify-content-lg-end">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" className="bi bi-x d-lg-flex align-content-around align-self-end order-1 justify-content-lg-end align-items-lg-start" style={{ width: '40px', height: '40px', cursor: 'pointer' }} onClick={onClose}>
                             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"></path>
@@ -70,7 +72,13 @@ const PopupProduct = ({ onClose, onConfirm, productName, productAmount }) => {
                     </div>
                     <div>
                         <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '10px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="number" style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} onChange={e => setQuantity(e.target.value)} />
+                            <input 
+                            type="number" 
+                            min="0" 
+                            style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} 
+                            value = {quantity? quantity : ''}
+                            onChange={(e) => handleValueForNumericInputs(e, setQuantity, quantity)} 
+                            onKeyDown={handleKeyDownForNumericInputs} />
                         </div>
                     </div>
                     <div>
@@ -80,7 +88,7 @@ const PopupProduct = ({ onClose, onConfirm, productName, productAmount }) => {
                         <input type="text" style={{ color: 'black', background: 'rgba(255,255,255,0)', borderStyle: 'none', borderColor: 'rgba(194,186,186,0)', height: '95px', outline: 'none' }} />
                     </div>
                     <div>
-                        <button
+                    <button
                             onClick={handleClick}
                             className="btn btn-primary"
                             type="button"
@@ -89,8 +97,8 @@ const PopupProduct = ({ onClose, onConfirm, productName, productAmount }) => {
                             onMouseDown={handleMouseDown}
                             onMouseOver={handleHover}
                             onMouseLeave={handleMouseUp}
-                            disabled={!quantity || quantity > productAmount || quantity == 0 || quantity < 0} // Deshabilita el botón si quantity es null, 0, o mayor que productAmount
-                        >
+                            disabled={!quantity || quantity > productAmount || quantity == 0 || quantity < 0} // Deshabilita el botón si quantity es null, 0, o mayor que productAmount >
+                            >
                             AGREGAR AL CARRITO
                         </button></div>
                 </div>

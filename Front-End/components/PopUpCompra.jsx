@@ -3,6 +3,7 @@ import { useState } from 'react'
 import './PopUp.css';
 import PopupPay from './PopUpPay';
 import Popup from './PopUp';
+import { handleKeyDownForNumericInputs, handleValueForNumericInputs } from "../src/helpers/InputCheckers";
 import axios from 'axios';
 import { getLoggedInUser } from '../src/pages/LoginPage';
 
@@ -16,7 +17,7 @@ export default function PopUpCompra ({ onClose, total, onCompra}) {
     })
 
     const [selectedButton, setSelectedButton] = useState(null);
-    const [quantity, setQuantity] = useState(0);
+    const [quantity, setQuantity] = useState("");
     const [popupMessage, setPopupMessage] = useState('');
     const [popupImage, setPopupImage] = useState('');
     const [showPopup, setShowPopup] = useState(false);
@@ -134,11 +135,6 @@ export default function PopUpCompra ({ onClose, total, onCompra}) {
         setShowPopupFail(false);
         }
 
-    const handleQuantityChange = (e) => {
-        const quantity = e.target.value;
-        setQuantity(quantity);
-    };
-
     return (
         <div>
         <div className="modal-container" id="modal">
@@ -159,7 +155,13 @@ export default function PopUpCompra ({ onClose, total, onCompra}) {
                             <p style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Cantidad Recibida</p>
                         </div><div>
                                 <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '10px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                                    <input type="number" style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} onChange={handleQuantityChange} />
+                                    <input 
+                                    type="number" 
+                                    style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} 
+                                    value = {quantity? quantity : ''}
+                                    onChange={(e) => handleValueForNumericInputs(e, setQuantity, quantity)} 
+                                    onKeyDown={handleKeyDownForNumericInputs}
+                                    />
                                 </div>
                             </div></>
                     )}
