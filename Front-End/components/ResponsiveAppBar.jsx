@@ -7,14 +7,14 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen}) {
     const { userInfo, handleLogout } = useUser();
 
     let pages = [];
-    const pageNames = ['Menú','Productos', 'Transacciones', 'Inventario', 'Reportes'];
+    const pageNames = ['Menú','Productos','Inventario'];
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
     if(userInfo.userTypeName === 'ADMINISTRADOR'){
-        pages = ['menu','admin-productos', 'transacciones', 'inventario', 'reportes'];
+        pages = ['menu','admin-productos','inventario',];
     } else {
         pages = ['menu','productos'];
     }
