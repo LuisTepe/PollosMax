@@ -64,6 +64,9 @@ const PopupProduct = ({ onClose, onConfirm, productName, productAmount}) => {
                     <div>
                         <p style={{ fontSize: '30px', fontWeight: 'bold', fontFamily: 'Allerta', marginTop: '10px', marginBottom: '0px' }}>{productName}</p>
                     </div>
+                    <div>
+                        <p style={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Allerta', marginTop: '10px', marginBottom: '0px' }}>Inventario: {productAmount}</p>
+                    </div>
                     <div style={{ marginTop: '30px' }}>
                         <p style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Cantidad</p>
                     </div>
