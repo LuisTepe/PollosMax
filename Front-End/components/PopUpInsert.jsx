@@ -5,102 +5,100 @@ import './PopUpInsert.css';
 
 async function fetchProducts() {
     try {
-      const response = await axios.get("http://localhost:3000/products");
-      return response.data;
+        const response = await axios.get("http://localhost:3000/products");
+        return response.data;
     } catch (error) {
-      console.error("Error fetching products:", error);
-      return [];
+        console.error("Error fetching products:", error);
+        return [];
     }
-  }
-  
-  async function addProduct(product) {
+}
+
+async function addProduct(product) {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/insertProduct",
-        product
-      );
-      console.log(response.data.message);
-      return response.data;
+        const response = await axios.post(
+            "http://localhost:3000/insertProduct",
+            product
+        );
+        console.log(response.data.message);
+        return response.data;
     } catch (error) {
-      console.error("Error:", error);
-      throw error;
+        console.error("Error:", error);
+        throw error;
     }
-  }
-  
-  const PopupInsert = ({ onClose }) => {
+}
+
+const PopupInsert = ({ onClose }) => {
     const [productName, setProductName] = useState("");
     const [productType, setProductType] = useState("");
     const [productUnit, setProductUnit] = useState("");
     const [productPrice, setProductPrice] = useState("");
     const [currentAmount, setCurrentAmount] = useState("");
     const [minimumAmount, setMinimumAmount] = useState("");
-  
+
     const [color, setColor] = useState({
-      color: "rgba(0, 0, 0, 1)",
-      borderColor: "rgba(0, 0, 0, 1)",
-      borderTopColor: "rgba(0, 0, 0, 1)",
-      borderRightColor: "rgba(0, 0, 0, 1)",
-      borderBottomColor: "rgba(0, 0, 0, 1)",
-    });
-  
-    const handleMouseUp = () => {
-      setColor({
         color: "rgba(0, 0, 0, 1)",
         borderColor: "rgba(0, 0, 0, 1)",
         borderTopColor: "rgba(0, 0, 0, 1)",
         borderRightColor: "rgba(0, 0, 0, 1)",
         borderBottomColor: "rgba(0, 0, 0, 1)",
-      });
-    };
-  
-    const handleMouseDown = () => {
-      setColor({
-        color: "rgba(30, 30, 30, 1)",
-        borderColor: "rgba(30, 30, 30, 1)",
-        borderTopColor: "rgba(30, 30, 30, 1)",
-        borderRightColor: "rgba(30, 30, 30, 1)",
-        borderBottomColor: "rgba(30, 30, 30, 1)",
-      });
-    };
-  
-    const handleHover = () => {
-      setColor({
-        color: "rgba(30, 30, 30, 1)",
-        borderColor: "rgba(30, 30, 30, 1)",
-        borderTopColor: "rgba(30, 30, 30, 1)",
-        borderRightColor: "rgba(30, 30, 30, 1)",
-        borderBottomColor: "rgba(30, 30, 30, 1)",
-      });
-    };
-  
-    const handleAddProduct = async () => {
-      try {
-        await addProduct({
-          productName,
-          productPrice,
-          productAmount: currentAmount,
-          idProductType: productType,
-          idUnit: productUnit,
-          minimumAmount,
+    });
+
+    const handleMouseUp = () => {
+        setColor({
+            color: "rgba(0, 0, 0, 1)",
+            borderColor: "rgba(0, 0, 0, 1)",
+            borderTopColor: "rgba(0, 0, 0, 1)",
+            borderRightColor: "rgba(0, 0, 0, 1)",
+            borderBottomColor: "rgba(0, 0, 0, 1)",
         });
-        console.log("Producto insertado correctamente");
-        onClose();
-  
-        // Obtener la lista actualizada de productos después de agregar uno nuevo
-        const updatedProducts = await fetchProducts();
-        // Actualizar la lista de productos en el componente
-        setProductName("");
-        setProductType("");
-        setProductUnit("");
-        setProductPrice("");
-        setCurrentAmount("");
-        setMinimumAmount("");
-      } catch (error) {
-        console.error("Error al insertar producto:", error);
-      }
     };
 
+    const handleMouseDown = () => {
+        setColor({
+            color: "rgba(30, 30, 30, 1)",
+            borderColor: "rgba(30, 30, 30, 1)",
+            borderTopColor: "rgba(30, 30, 30, 1)",
+            borderRightColor: "rgba(30, 30, 30, 1)",
+            borderBottomColor: "rgba(30, 30, 30, 1)",
+        });
+    };
 
+    const handleHover = () => {
+        setColor({
+            color: "rgba(30, 30, 30, 1)",
+            borderColor: "rgba(30, 30, 30, 1)",
+            borderTopColor: "rgba(30, 30, 30, 1)",
+            borderRightColor: "rgba(30, 30, 30, 1)",
+            borderBottomColor: "rgba(30, 30, 30, 1)",
+        });
+    };
+
+    const handleAddProduct = async () => {
+        try {
+            await addProduct({
+                productName,
+                productPrice,
+                productAmount: currentAmount,
+                idProductType: productType,
+                idUnit: productUnit,
+                minimumAmount,
+            });
+            console.log("Producto insertado correctamente");
+            onClose();
+
+            // Obtener la lista actualizada de productos después de agregar uno nuevo
+            const updatedProducts = await fetchProducts();
+            // Actualizar la lista de productos en el componente
+            setProductName("");
+            setProductType("");
+            setProductUnit("");
+            setProductPrice("");
+            setCurrentAmount("");
+            setMinimumAmount("");
+        } catch (error) {
+            console.error("Error al insertar producto:", error);
+        }
+    };
 
     const handleProductNameChange = (e) => {
         const value = e.target.value;
@@ -117,7 +115,7 @@ async function fetchProducts() {
             setProductPrice(value);
         }
     };
-    
+
     const handleCurrentAmountChange = (e) => {
         let value = e.target.value;
         // Permite solo números positivos y ajusta el valor máximo a 99999
@@ -125,7 +123,7 @@ async function fetchProducts() {
             setCurrentAmount(value);
         }
     };
-    
+
     const handleMinimumAmountChange = (e) => {
         let value = e.target.value;
         // Permite solo números positivos, ajusta el valor mínimo a 1 y el máximo a 99999
@@ -134,20 +132,15 @@ async function fetchProducts() {
             setMinimumAmount(value);
         }
     };
-    
-    
+
     const handleKeyPress = (e) => {
         // Evita la entrada de caracteres especiales y letras
         if (!/^\d*$/.test(e.key)) {
             e.preventDefault();
         }
     };
-    
+
     const isFormValid = productName && productType && productUnit && productPrice && currentAmount && minimumAmount;
-    
-    
-
-
 
     return (
         <div className="modal-container" id="modal">
@@ -176,13 +169,13 @@ async function fetchProducts() {
                     </div>
                     <div>
                         <select
-                          value={productType}
-                          onChange={(e) => setProductType(e.target.value)}
-                          style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px', width: '330px', borderRadius: '5px', color: 'rgb(0,0,0)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)' }}
+                            value={productType}
+                            onChange={(e) => setProductType(e.target.value)}
+                            style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px', width: '330px', borderRadius: '5px', color: 'rgb(0,0,0)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)' }}
                         >
-                          <option value="" disabled hidden>Selecciona el tipo de producto</option>
-                          <option value="1" style={{ color: 'rgb(0,0,0)' }}>Almacen</option>
-                          <option value="2" style={{ color: 'rgb(0,0,0)' }}>Comercial</option>
+                            <option value="" disabled hidden>Selecciona el tipo de producto</option>
+                            <option value="1" style={{ color: 'rgb(0,0,0)' }}>Almacen</option>
+                            <option value="2" style={{ color: 'rgb(0,0,0)' }}>Comercial</option>
                         </select>
                     </div>
 
@@ -191,14 +184,14 @@ async function fetchProducts() {
                     </div>
                     <div>
                         <select
-                          value={productUnit}
-                          onChange={(e) => setProductUnit(e.target.value)}
-                          style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px', width: '330px', borderRadius: '5px', color: 'rgb(0,0,0)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)' }}
+                            value={productUnit}
+                            onChange={(e) => setProductUnit(e.target.value)}
+                            style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px', width: '330px', borderRadius: '5px', color: 'rgb(0,0,0)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)' }}
                         >
-                          <option value="" disabled hidden >Selecciona la unidad</option>
-                          <option value="1" style={{ color: 'rgb(0,0,0)' }}>KG</option>
-                          <option value="2" style={{ color: 'rgb(0,0,0)' }}>Unidades</option>
-                          <option value="3" style={{ color: 'rgb(0,0,0)' }}>Piezas</option>
+                            <option value="" disabled hidden >Selecciona la unidad</option>
+                            <option value="1" style={{ color: 'rgb(0,0,0)' }}>KG</option>
+                            <option value="2" style={{ color: 'rgb(0,0,0)' }}>Unidades</option>
+                            <option value="3" style={{ color: 'rgb(0,0,0)' }}>Piezas</option>
                         </select>
                     </div>
 
@@ -207,7 +200,7 @@ async function fetchProducts() {
                     </div>
                     <div>
                         <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="number" value={productPrice} onChange={handlePriceChange} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
+                            <input type="text" value={productPrice} onChange={handlePriceChange} onKeyPress={handleKeyPress} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
 
@@ -216,7 +209,7 @@ async function fetchProducts() {
                     </div>
                     <div>
                         <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="number" value={currentAmount} onChange={handleCurrentAmountChange} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
+                            <input type="text" value={currentAmount} onChange={handleCurrentAmountChange} onKeyPress={handleKeyPress} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
 
@@ -225,34 +218,34 @@ async function fetchProducts() {
                     </div>
                     <div>
                         <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="number" value={minimumAmount} onChange={handleMinimumAmountChange} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
+                            <input type="text" value={minimumAmount} onChange={handleMinimumAmountChange} onKeyPress={handleKeyPress} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
 
                     <div>
-                    <button
-    onClick={handleAddProduct}
-    disabled={!isFormValid}
-    className="btn btn-primary"
-    type="button"
-    style={{
-        marginTop: '20px',
-        fontFamily: 'Allerta',
-        background: color.color,
-        borderWidth: '5px',
-        borderColor: color.borderColor,
-        borderTopColor: color.borderTopColor,
-        borderRightColor: color.borderRightColor,
-        borderBottomColor: color.borderBottomColor,
-        outline: 'none'
-    }}
-    onMouseUp={handleMouseUp}
-    onMouseDown={handleMouseDown}
-    onMouseOver={handleHover}
-    onMouseLeave={handleMouseUp}
->
-    Agregar
-</button>
+                        <button
+                            onClick={handleAddProduct}
+                            disabled={!isFormValid}
+                            className="btn btn-primary"
+                            type="button"
+                            style={{
+                                marginTop: '20px',
+                                fontFamily: 'Allerta',
+                                background: color.color,
+                                borderWidth: '5px',
+                                borderColor: color.borderColor,
+                                borderTopColor: color.borderTopColor,
+                                borderRightColor: color.borderRightColor,
+                                borderBottomColor: color.borderBottomColor,
+                                outline: 'none'
+                            }}
+                            onMouseUp={handleMouseUp}
+                            onMouseDown={handleMouseDown}
+                            onMouseOver={handleHover}
+                            onMouseLeave={handleMouseUp}
+                        >
+                            Agregar
+                        </button>
                     </div>
                 </div>
             </div>
