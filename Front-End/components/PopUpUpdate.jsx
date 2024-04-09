@@ -63,17 +63,33 @@ const PopupUpdate = ({ onClose, idProduct, product }) => {
 
     const handleProductNameChange = (e) => {
         const value = e.target.value;
-        setProductName(value);
+        // Validar que solo se ingresen letras
+        if (/^[a-zA-Z]+$/.test(value) || value === "") {
+            setProductName(value);
+        }
     };
 
     const handlePriceChange = (e) => {
-        const value = e.target.value;
-        setProductPrice(value);
+        let value = e.target.value;
+        // Permite solo números positivos y ajusta el valor máximo a 999999
+        if (value === '' || (/^\d*\.?\d*$/.test(value) && parseFloat(value) <= 999999)) {
+            setProductPrice(value);
+        }
+    };
+    
+    const handleCurrentAmountChange = (e) => {
+        let value = e.target.value;
+        // Permite solo números positivos y ajusta el valor máximo a 99999
+        if (value === '' || (/^\d*\.?\d*$/.test(value) && parseInt(value) <= 99999)) {
+            setProductAmount(value);
+        }
     };
 
-    const handleCurrentAmountChange = (e) => {
-        const value = e.target.value;
-        setProductAmount(value);
+    const handleKeyPress = (e) => {
+        // Permitir números, el punto y el borrado (tecla Backspace)
+        if (!/^[\d.]*$/.test(e.key) && e.key !== 'Backspace') {
+            e.preventDefault();
+        }
     };
 
     const isFormValid = productName && productPrice && productAmount;
@@ -114,7 +130,7 @@ const PopupUpdate = ({ onClose, idProduct, product }) => {
                     </div>
                     <div>
                         <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="number" value={productPrice} onChange={handlePriceChange} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
+                            <input type="number" value={productPrice} onChange={handlePriceChange} onKeyPress={handleKeyPress} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
 
@@ -123,7 +139,7 @@ const PopupUpdate = ({ onClose, idProduct, product }) => {
                     </div>
                     <div>
                         <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="number" value={productAmount} onChange={handleCurrentAmountChange} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
+                            <input type="number" value={productAmount} onChange={handleCurrentAmountChange} onKeyPress={handleKeyPress} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
 
