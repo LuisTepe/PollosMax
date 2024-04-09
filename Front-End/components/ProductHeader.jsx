@@ -6,13 +6,10 @@ function SearchBar({ handleSearch }) {
     const [searchTerm, setSearchTerm] = useState('');
 
     const handleInputChange = (event) => {
-        setSearchTerm(event.target.value);
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
+        const value = event.target.value;
+        setSearchTerm(value);
         // Llamar a la función de búsqueda y pasar el término de búsqueda
-        handleSearch(searchTerm);
+        handleSearch(value);
     };
 
     return (
@@ -20,14 +17,13 @@ function SearchBar({ handleSearch }) {
             <div className="search-icon-container">
                 <img src={buscarIcono} alt="Icono de búsqueda" className="search-icon" />
             </div>
-            <form onSubmit={handleSubmit}>
+            <form>
                 <input
                     type="text"
                     placeholder="Ingrese código o nombre del producto"
                     value={searchTerm}
                     onChange={handleInputChange}
                 />
-                <button type="submit">Buscar</button>
             </form>
         </div>
     );

@@ -9,6 +9,7 @@ import agregar from "/src/assets/img/agregar.png";
 import PopupDelete from './PopUpDelete'; 
 import PopupUpdate from './PopUpUpdate'; 
 import PopupInsert from './PopUpInsert';
+import SearchBar from './ProductHeader'; // Corregido: Importa desde el archivo correcto
 
 function ProductSortingBar({ handleSort, products }) {
 
@@ -59,6 +60,21 @@ function ProductSortingBar({ handleSort, products }) {
       handleSort(field, newOrder);
     };
   
+    // Función para manejar la búsqueda de productos por nombre
+    const [searchTerm, setSearchTerm] = useState("");
+    const handleSearch = (term) => {
+      setSearchTerm(term);
+    };
+
+    // Filtrar los productos por nombre según el término de búsqueda
+    const filteredProducts = products.filter(
+      (product) =>
+      product.productName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.idProduct.toString().includes(searchTerm.toLowerCase()) // Convertir a cadena y buscar por número de código
+        
+        
+    );
+  
     return (
       <div>
       <div className="product-sorting-general">
@@ -96,10 +112,11 @@ function ProductSortingBar({ handleSort, products }) {
           />
         </div>
       </div>
+      <SearchBar handleSearch={handleSearch} />
          <div className="product-list-container" style={{ maxHeight: 'auto', overflowY: 'auto', overflowX:'auto'}}>
          <table className="product-table">
            <tbody>
-             {products.map((product, index) => (
+             {filteredProducts.map((product, index) => (
                <tr key={index} className="product-item">
                  <td>{product.idProduct}</td>
                  <td>{product.productName}</td>
@@ -123,16 +140,15 @@ function ProductSortingBar({ handleSort, products }) {
          </button>
        </div>
        {isDeletePopupOpen && <PopupDelete onClose={() => setIsDeletePopupOpen(false)} />}
+       
        {isInsertPopupOpen && <PopupInsert onClose={() => setIsInsertPopupOpen(false)} />}
        {isEditPopupOpen && (
   <PopupUpdate
     onClose={() => setIsEditPopupOpen(false)}
-    idProduct={activeProductId} // Pasar el ID del producto activo
-    product={products.find(product => product.idProduct === activeProductId)} // Encontrar el producto correspondiente al ID activo
+    idProduct={activeProductId} // Pasa el ID del producto activo
+    product={products.find(product => product.idProduct === activeProductId)} // Encuentra el producto correspondiente al ID activo
   />
 )}
-
-
       </div>
 
       

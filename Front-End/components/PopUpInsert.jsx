@@ -119,23 +119,23 @@ const PopupInsert = ({ onClose }) => {
     const handleCurrentAmountChange = (e) => {
         let value = e.target.value;
         // Permite solo números positivos y ajusta el valor máximo a 99999
-        if (value === '' || (/^\d*$/.test(value) && parseInt(value) <= 99999)) {
+        if (value === '' || (/^\d*\.?\d*$/.test(value) && parseInt(value) <= 99999)) {
             setCurrentAmount(value);
         }
     };
 
     const handleMinimumAmountChange = (e) => {
         let value = e.target.value;
-        // Permite solo números positivos, ajusta el valor mínimo a 1 y el máximo a 99999
-        if (value === '' || (/^\d*$/.test(value) && parseInt(value) >= 1 && parseInt(value) <= 99999)) {
-            value = value === '' ? '' : Math.max(1, parseInt(value)); // Establece el valor mínimo en 1 si no está vacío
-            setMinimumAmount(value);
+        // Verifica si el valor es vacío o si solo contiene números y opcionalmente un punto
+        if (/^\d*\.?\d*$/.test(value)) {
+            value === '' ? '' : Math.max(1, parseFloat(value)); // Establece el valor mínimo en 1 si no está vacío
+            setMinimumAmount(value.toString());
         }
     };
 
     const handleKeyPress = (e) => {
-        // Evita la entrada de caracteres especiales y letras
-        if (!/^\d*$/.test(e.key)) {
+        // Permitir números, el punto y el borrado (tecla Backspace)
+        if (!/^[\d.]*$/.test(e.key) && e.key !== 'Backspace') {
             e.preventDefault();
         }
     };

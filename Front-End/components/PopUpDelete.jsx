@@ -55,8 +55,8 @@ const PopupDelete = ({ onClose }) => {
     const isFormValid = productId !== ""; // Verifica si el ID del producto está completo
 
     const handleInputChange = (e) => {
-        // Evita que se ingrese el símbolo negativo
-        if (e.keyCode === 189 || e.keyCode === 69) {
+        // Evita que se ingrese el símbolo negativo y el punto
+        if (e.keyCode === 189 || e.keyCode === 69 || e.key === '.') {
             e.preventDefault();
         }
     };
