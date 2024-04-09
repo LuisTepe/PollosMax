@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from 'react';
 import axios from 'axios';
 
-const PopupDelete = ({ onClose }) => {
+const PopupDelete = ({ onClose, idProduct }) => {
     const [color, setColor] = useState({
         color: 'rgba(0, 0, 0, 1)',
         borderColor: 'rgba(0, 0, 0, 1)',
@@ -10,7 +10,6 @@ const PopupDelete = ({ onClose }) => {
         borderRightColor: 'rgba(0, 0, 0, 1)',
         borderBottomColor: 'rgba(0, 0, 0, 1)',
     });
-    const [productId, setProductId] = useState(""); // Estado para el ID del producto
 
     const handleMouseUp = () => {
         setColor({
@@ -44,7 +43,7 @@ const PopupDelete = ({ onClose }) => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:3000/deleteProduct/${productId}`);
+            await axios.delete(`http://localhost:3000/deleteProduct/${idProduct}`);
             console.log("Producto eliminado correctamente");
             onClose(); // Cierra el popup después de eliminar el producto
         } catch (error) {
@@ -52,14 +51,7 @@ const PopupDelete = ({ onClose }) => {
         }
     };
 
-    const isFormValid = productId !== ""; // Verifica si el ID del producto está completo
-
-    const handleInputChange = (e) => {
-        // Evita que se ingrese el símbolo negativo y el punto
-        if (e.keyCode === 189 || e.keyCode === 69 || e.key === '.') {
-            e.preventDefault();
-        }
-    };
+    const isFormValid = idProduct !== ""; // Verifica si el ID del producto está completo
 
     return (
         <div className="modal-container" id="modal">
@@ -75,11 +67,11 @@ const PopupDelete = ({ onClose }) => {
                     </div>
 
                     <div style={{ marginTop: '30px' }}>
-                        <p style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Ingrese el código de este producto</p>
+                        <p style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Código de este producto</p>
                     </div>
                     <div>
                         <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '10px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="number" value={productId} onChange={(e) => setProductId(e.target.value)} onKeyDown={handleInputChange} min="0" style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
+                            <input type="number" value={idProduct} readOnly style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
 
@@ -94,6 +86,7 @@ const PopupDelete = ({ onClose }) => {
 
 PopupDelete.propTypes = {
     onClose: PropTypes.func.isRequired,
+    idProduct: PropTypes.number.isRequired,
 };
 
 export default PopupDelete;

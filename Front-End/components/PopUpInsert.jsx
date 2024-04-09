@@ -126,10 +126,9 @@ const PopupInsert = ({ onClose }) => {
 
     const handleMinimumAmountChange = (e) => {
         let value = e.target.value;
-        // Verifica si el valor es vacío o si solo contiene números y opcionalmente un punto
-        if (/^\d*\.?\d*$/.test(value)) {
-            value === '' ? '' : Math.max(1, parseFloat(value)); // Establece el valor mínimo en 1 si no está vacío
-            setMinimumAmount(value.toString());
+        // Permite solo números positivos y ajusta el valor máximo a 99999
+        if (value === '' || (/^\d*\.?\d*$/.test(value)&& parseInt(value) >= .1 && parseInt(value) <= 99999)) {
+            setMinimumAmount(value);
         }
     };
 

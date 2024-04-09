@@ -9,7 +9,7 @@ import agregar from "/src/assets/img/agregar.png";
 import PopupDelete from './PopUpDelete'; 
 import PopupUpdate from './PopUpUpdate'; 
 import PopupInsert from './PopUpInsert';
-import SearchBar from './ProductHeader'; // Corregido: Importa desde el archivo correcto
+import SearchBar from './ProductHeader';
 
 function ProductSortingBar({ handleSort, products }) {
 
@@ -21,99 +21,99 @@ function ProductSortingBar({ handleSort, products }) {
  
    // Controlar si el pop-up de inserción está abierto o cerrado
    const [isInsertPopupOpen, setIsInsertPopupOpen] = useState(false);
- 
-   //Abrir el pop-up de delete al hacer clic en el botón de borrar
-   const handleDeleteButtonClick = () => {
-     setIsDeletePopupOpen(true);
-     setIsEditPopupOpen(false); // Asegurarse de que el popup de edición esté cerrado al abrir el de eliminación
-   };
 
+   // ID del producto activo para edición o eliminación
    const [activeProductId, setActiveProductId] = useState(null);
  
-   //Abrir el pop-up de update al hacer clic en el botón de editar
- const handleEditButtonClick = (productId) => {
-  setIsEditPopupOpen(true);
-  setIsDeletePopupOpen(false); // Asegurarse de que el popup de eliminación esté cerrado al abrir el de edición
-  setActiveProductId(productId); // Establecer el idProduct del producto seleccionado
-};
+   // Abrir el pop-up de delete al hacer clic en el botón de borrar
+   const handleDeleteButtonClick = (productId) => {
+     setIsDeletePopupOpen(true);
+     setIsEditPopupOpen(false); // Asegúrate de que el popup de edición esté cerrado al abrir el de eliminación
+     setActiveProductId(productId); // Establecer el productId activo
+   };
+
+   // Abrir el pop-up de update al hacer clic en el botón de editar
+   const handleEditButtonClick = (productId) => {
+     setIsEditPopupOpen(true);
+     setIsDeletePopupOpen(false); // Asegúrate de que el popup de eliminación esté cerrado al abrir el de edición
+     setActiveProductId(productId); // Establecer el idProduct del producto seleccionado
+   };
  
-   //Abrir el pop-up de insert al hacer clic en el botón de agregar
+   // Abrir el pop-up de insert al hacer clic en el botón de agregar
    const handleAddButtonClick = () => {
      setIsInsertPopupOpen(true);
    };
-    const [activeField, setActiveField] = useState(null);
-    const [imageSrc, setImageSrc] = useState(flechaAbajo); 
-    const [order, setOrder] = useState('asc'); 
 
-    const handleClick = (field) => {
-      // Cambiar el estado del campo activo
-      setActiveField(field);
+   const [activeField, setActiveField] = useState(null);
+   const [imageSrc, setImageSrc] = useState(flechaAbajo); 
+   const [order, setOrder] = useState('asc'); 
 
-      // Cambiar el orden
-      const newOrder = order === 'asc' ? 'desc' : 'asc';
-      setOrder(newOrder);
+   const handleClick = (field) => {
+     // Cambiar el estado del campo activo
+     setActiveField(field);
 
-      // Cambiar la flechilla de organizacion según el campo activo y el orden
-      setImageSrc(newOrder === 'asc' ? flechaArriba : flechaAbajo);
+     // Cambiar el orden
+     const newOrder = order === 'asc' ? 'desc' : 'asc';
+     setOrder(newOrder);
 
-      // Llamar a la función de ordenamiento
-      handleSort(field, newOrder);
-    };
+     // Cambiar la flechilla de organizacion según el campo activo y el orden
+     setImageSrc(newOrder === 'asc' ? flechaArriba : flechaAbajo);
+
+     // Llamar a la función de ordenamiento
+     handleSort(field, newOrder);
+   };
   
-    // Función para manejar la búsqueda de productos por nombre
-    const [searchTerm, setSearchTerm] = useState("");
-    const handleSearch = (term) => {
-      setSearchTerm(term);
-    };
+   // Función para manejar la búsqueda de productos por nombre
+   const [searchTerm, setSearchTerm] = useState("");
+   const handleSearch = (term) => {
+     setSearchTerm(term);
+   };
 
-    // Filtrar los productos por nombre según el término de búsqueda
-    const filteredProducts = products.filter(
-      (product) =>
-      product.productName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.idProduct.toString().includes(searchTerm.toLowerCase()) // Convertir a cadena y buscar por número de código
-        
-        
-    );
+   // Filtrar los productos por nombre según el término de búsqueda
+   const filteredProducts = products.filter(
+     (product) =>
+     product.productName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+     product.idProduct.toString().includes(searchTerm.toLowerCase()) // Convertir a cadena y buscar por número de código
+   );
   
-    return (
-      <div>
-      <div className="product-sorting-general">
-        <div className="product-categories">
-          <button
-            className={activeField === 'code' ? 'active' : ''}
-            onClick={() => handleClick('code')}
-          >
-            Código
-          </button>
-          <button
-            className={activeField === 'name' ? 'active' : ''}
-            onClick={() => handleClick('name')}
-          >
-            Nombre
-          </button>
-        
-          <button
-            className={activeField === 'price' ? 'active' : ''}
-            onClick={() => handleClick('price')}
-          >
-            Precio
-          </button>
-          <button
-            className={activeField === 'stock' ? 'active' : ''}
-            onClick={() => handleClick('stock')}
-          >
-            Stock
-          </button>
-          <img
-            className={`image-format ${activeField === 'image' ? 'active' : ''}`}
-            src={imageSrc} // Usar la imagen dinámica
-            alt="caret-abajo"
-            onClick={() => handleClick('image')}
-          />
-        </div>
-      </div>
-      <SearchBar handleSearch={handleSearch} />
-         <div className="product-list-container" style={{ maxHeight: 'auto', overflowY: 'auto', overflowX:'auto'}}>
+   return (
+     <div>
+       <div className="product-sorting-general">
+         <div className="product-categories">
+           <button
+             className={activeField === 'code' ? 'active' : ''}
+             onClick={() => handleClick('code')}
+           >
+             Código
+           </button>
+           <button
+             className={activeField === 'name' ? 'active' : ''}
+             onClick={() => handleClick('name')}
+           >
+             Nombre
+           </button>
+           <button
+             className={activeField === 'price' ? 'active' : ''}
+             onClick={() => handleClick('price')}
+           >
+             Precio
+           </button>
+           <button
+             className={activeField === 'stock' ? 'active' : ''}
+             onClick={() => handleClick('stock')}
+           >
+             Stock
+           </button>
+           <img
+             className={`image-format ${activeField === 'image' ? 'active' : ''}`}
+             src={imageSrc}
+             alt="caret-abajo"
+             onClick={() => handleClick('image')}
+           />
+         </div>
+       </div>
+       <SearchBar handleSearch={handleSearch} />
+       <div className="product-list-container" style={{ maxHeight: 'auto', overflowY: 'auto', overflowX:'auto'}}>
          <table className="product-table">
            <tbody>
              {filteredProducts.map((product, index) => (
@@ -123,11 +123,10 @@ function ProductSortingBar({ handleSort, products }) {
                  <td>{product.productPrice}</td>
                  <td>{product.productAmount}</td>
                  <td>
-                   {/* Convertir las imágenes en botones */}
                    <button className="edit-button" onClick={() => handleEditButtonClick(product.idProduct)}>
                      <img src={editar} alt="Editar" className="edit-icon" />
                    </button>
-                   <button className="delete-button" onClick={handleDeleteButtonClick}>
+                   <button className="delete-button"  onClick={() => handleDeleteButtonClick(product.idProduct)}>
                      <img src={borrar} alt="Borrar" className="delete-icon" />
                    </button>
                  </td>
@@ -139,21 +138,17 @@ function ProductSortingBar({ handleSort, products }) {
            <img src={agregar} alt="Agregar" className="add-icon" />
          </button>
        </div>
-       {isDeletePopupOpen && <PopupDelete onClose={() => setIsDeletePopupOpen(false)} />}
-       
+       {isDeletePopupOpen && <PopupDelete onClose={() => setIsDeletePopupOpen(false)} idProduct={activeProductId} />}
        {isInsertPopupOpen && <PopupInsert onClose={() => setIsInsertPopupOpen(false)} />}
        {isEditPopupOpen && (
-  <PopupUpdate
-    onClose={() => setIsEditPopupOpen(false)}
-    idProduct={activeProductId} // Pasa el ID del producto activo
-    product={products.find(product => product.idProduct === activeProductId)} // Encuentra el producto correspondiente al ID activo
-  />
-)}
-      </div>
-
-      
-      
-  );
+         <PopupUpdate
+           onClose={() => setIsEditPopupOpen(false)} // Cierra el popup de edición
+           idProduct={activeProductId}
+           product={products.find(product => product.idProduct === activeProductId)}
+         />
+       )}
+     </div>
+   );
 }
 
 ProductSortingBar.propTypes = {
