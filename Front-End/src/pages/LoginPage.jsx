@@ -118,7 +118,7 @@ export default function LoginPage() {
     <div id="login-container" className="text-center d-lg-flex flex-fill justify-content-center align-items-center align-content-center align-self-center flex-nowrap justify-content-lg-center align-items-lg-center" style={{background: 'rgb(245, 245, 245)', borderColor: 'rgb(245, 245, 245)', borderTopColor: 'rgb(245, 245, 245)', borderRightColor: 'rgb(245, 245, 245)', borderBottomColor: 'rgb(245, 245, 245)', borderLeftColor: 'rgb(245, 245, 245)'}}  >
       <form id='login-form' style={{ background: 'rgb(182, 187, 196)', width: 'auto', height: 'auto', padding: '75px', borderRadius: '10px', marginTop: '30px' }}>
         <div style={{ width: '200px', textAlign: 'center' }}>
-          <div style={{ textAlign: 'center' }}><img style={{ height: '100px', borderRadius: '10px', width: '100px', background: 'url(\'src/assets/img/pollomaxlogo.jpg\')', minWidth: 'auto', borderWidth: '10px' }} src="src/assets/img/pollomaxlogo.jpg" alt="Logo"/></div>
+          <div style={{ textAlign: 'center' }}><img style={{ height: '100px', borderRadius: '10px', width: '100px', background: 'url(\'./src/assets/img/pollomaxlogo.png\')', minWidth: 'auto', borderWidth: '10px' }} src="src/assets/img/pollomaxlogo.png" alt="Logo"/></div>
           <div>
             <p style={{ fontSize: '25px', fontWeight: 'bold', fontFamily: 'Allerta', marginTop: '10px', color: "white" }}className = "iniciarSesion">INICIAR SESIÓN</p>
           </div>
