@@ -1,0 +1,17 @@
+Instrucciones para el uso del repositorio:
+
+-Clonar el repositorio en la carpeta deseada
+-Abrir la carpeta del programa en VS Code o su IDE de preferencia
+-Abrir dos terminales en la direccion del proyecto
+-Ingresar a la carpeta de Front-End del proyecto comando y ejecutar los siguientes comandos en consola:
+  CD Fron-End
+  npm install
+  npm run dev
+  
+-Ahora acceder a la segunda terminal desde la carpeta del proyecto
+  CD Back-End
+  npm install
+  npm install SQLite3
+  npm run dev
+
+Listo con estos pasos ya deberias poder acceder al programa con la URL que proporciona la terminal de Front-End
