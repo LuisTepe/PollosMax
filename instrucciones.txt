@@ -11,7 +11,7 @@ Instrucciones para el uso del repositorio:
 -Ahora acceder a la segunda terminal desde la carpeta del proyecto
   CD Back-End
   npm install
-  npm install SQLite3
+  npm install sqlite3
   npm run dev
 
 Listo con estos pasos ya deberias poder acceder al programa con la URL que proporciona la terminal de Front-End
