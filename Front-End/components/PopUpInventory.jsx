@@ -12,7 +12,7 @@ const EditMinimumAmountPopup = ({ onClose, item, onSave }) => {
 
   return (
     <div className="modal-container" id="modal">
-      <div className="modal-content d-inline-flex justify-content-lg-center align-items-lg-center" style={{ background: 'rgb(251, 225, 147)', width: '400px', height: '550px', padding: '75px', borderRadius: '10px', border: '2px solid var(--bs-emphasis-color)', marginTop: '80px' }}>
+      <div className="modal-content d-inline-flex justify-content-lg-center align-items-lg-center" style={{ background: '#F5F5F5', width: '400px', height: '550px', padding: '75px', borderRadius: '10px', border: '2px solid var(--bs-emphasis-color)', marginTop: '80px' }}>
         <div style={{ width: '350px', textAlign: 'center', height: '500px' }}>
           <div className="d-lg-flex justify-content-lg-end">
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" className="bi bi-x d-lg-flex align-content-around align-self-end order-1 justify-content-lg-end align-items-lg-start" style={{ width: '40px', height: '40px', cursor:'pointer' }} onClick={onClose}>

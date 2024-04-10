@@ -14,6 +14,7 @@ td:first-child {
   border-left-style: solid;
   border-top-left-radius: 10px; 
   border-bottom-left-radius: 10px;
+  padding-left: 50px;
 }
 td:last-child {
   border-right-style: solid;
@@ -27,9 +28,9 @@ td:last-child {
 }
 
 .table thead th {
-  background-color: #9F4DF0;
+  background-color: #35374B;
   color: white;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Roboto';
 }
 
 .table {
@@ -38,7 +39,8 @@ td:last-child {
 }
 
 .div-search {
-  background-color: #9F4DF0;
+  background-color: #1C1D28;
+  ;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,7 +54,7 @@ td:last-child {
   margin: 10px;
   padding: 5px;
   width: 350px;
-  background-color: #E7D3FB;
+  background-color: #F5F5F5;
   color: white;
   border-left-style: solid;
   border-top-left-radius: 10px; 
@@ -66,7 +68,7 @@ td:last-child {
 }
 
 .btnAdd{
-  background-color: #801FE1;
+  background-color: #35374B;
   color: white;
   padding: 10px;
   border: none;

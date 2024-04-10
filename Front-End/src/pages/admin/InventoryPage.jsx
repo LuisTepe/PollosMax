@@ -152,8 +152,8 @@ export default function InventoryPage() {
                     style={{
                       backgroundColor:
                         item.productAmount < item.minimumAmount
-                          ? "#F5B470"
-                          : "#90EE90",
+                        ? "#FF783F"
+                        : "#A0FFAA",
                     }}
                   >
                     {item.idProduct}
@@ -162,8 +162,8 @@ export default function InventoryPage() {
                     style={{
                       backgroundColor:
                         item.productAmount < item.minimumAmount
-                          ? "#F5B470"
-                          : "#90EE90",
+                        ? "#FF783F"
+                        : "#A0FFAA",
                     }}
                   >
                     {item.productTypeName}
@@ -172,8 +172,8 @@ export default function InventoryPage() {
                     style={{
                       backgroundColor:
                         item.productAmount < item.minimumAmount
-                          ? "#F5B470"
-                          : "#90EE90",
+                        ? "#FF783F"
+                        : "#A0FFAA",
                     }}
                   >
                     {item.productName}
@@ -182,8 +182,8 @@ export default function InventoryPage() {
                     style={{
                       backgroundColor:
                         item.productAmount < item.minimumAmount
-                          ? "#F5B470"
-                          : "#90EE90",
+                        ? "#FF783F"
+                        : "#A0FFAA",
                     }}
                   >
                     {item.productAmount}
@@ -192,8 +192,8 @@ export default function InventoryPage() {
                     style={{
                       backgroundColor:
                         item.productAmount < item.minimumAmount
-                          ? "#F5B470"
-                          : "#90EE90",
+                        ? "#FF783F"
+                        : "#A0FFAA",
                     }}
                   >
                     {item.minimumAmount}
@@ -202,8 +202,8 @@ export default function InventoryPage() {
                     style={{
                       backgroundColor:
                         item.productAmount < item.minimumAmount
-                          ? "#F5B470"
-                          : "#90EE90",
+                        ? "#FF783F"
+                        : "#A0FFAA",
                     }}
                   >
                     {item.unitName}
@@ -212,8 +212,8 @@ export default function InventoryPage() {
                     style={{
                       backgroundColor:
                         item.productAmount < item.minimumAmount
-                          ? "#F5B470"
-                          : "#90EE90",
+                        ? "#FF783F"
+                        : "#A0FFAA",
                     }}
                   >
                     <img
