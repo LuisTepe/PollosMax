@@ -16,7 +16,7 @@ export default function MenuPage() {
   const user = getLoggedInUser();
 
   const [color, setColor] = useState({
-    color: 'rgba(117, 42, 116, 1)',
+    color: 'rgb(49, 48, 77)',
   })
 
   const [search, setSearch] = useState('');
@@ -222,46 +222,46 @@ export default function MenuPage() {
   const productAmount = productAmounts[0];
 
   return (
-    <div className='d-flex' style={{ background: '#faf0d2', position: 'initial', flexWrap: 'wrap' }}>
+    <div className='d-flex' style={{ background: 'rgb(245, 245, 245)', position: 'initial', flexWrap: 'wrap' }}>
       <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       <div style={{ padding: isSidebarOpen ? '0px 240px 150px 240px' : '0px 0px 150px 40px', position: 'initial' }}>
-        <div className="wrapper" style={{ background: '#faf0d2', fontFamily: 'Allerta, sans-serif', fontSize: 22, borderTopStyle: 'none' }}>
-          <div id="content" style={{ background: '#FAF0D2', borderTopWidth: 0, borderBottomWidth: 2, borderBottomColor: '#7c3271' }}>
+        <div className="wrapper" style={{ background: 'rgb(245, 245, 245)', fontFamily: 'Allerta, sans-serif', fontSize: 22, borderTopStyle: 'none' }}>
+          <div id="content" style={{ background: 'rgb(245, 245, 245)', borderTopWidth: 0, borderBottomWidth: 2, borderBottomColor: '#7c3271' }}>
             <div style={{ marginTop: 10, marginLeft: 30 }}>
               <h1 style={{ fontSize: 25, fontFamily: 'Allerta, sans-serif' }}>Expendio Bachoco</h1>
               <h1 style={{ fontFamily: 'Allerta, sans-serif', fontSize: 38 }}>EL POLLO MAX</h1>
             </div>
             <div className="d-flex justify-content-between" style={{ marginTop: 50, marginLeft: 50 }}>
-              <div className='d-flex' style={{ background: '#faf0d2', position: 'initial', flexWrap: 'wrap', overflow: 'hidden' }}>
+              <div className='d-flex' style={{ background: 'rgb(245, 245, 245)', position: 'initial', flexWrap: 'wrap', overflow: 'hidden' }}>
                 <table className="table table-borderless">
-                  <thead style={{ background: '#FAF0D2' }}>
-                    <tr style={{ background: '#FAF0D2' }}>
-                      <th style={{ background: '#faf0d2', fontSize: 25, paddingRight: 50, borderTopWidth: 0, borderBottomWidth: 2, borderBottomColor: '#7c3271', fontFamily: 'Allerta, sans-serif', color: 'black' }}>Producto</th>
-                      <th style={{ background: '#faf0d2', fontSize: 25, marginRight: 0, paddingRight: 50, borderTopWidth: 0, borderBottomWidth: 2, borderBottomColor: '#7c3271', fontFamily: 'Allerta, sans-serif', color: 'black' }}>Cantidad</th>
-                      <th style={{ background: '#faf0d2', fontSize: 25, width: 100, paddingRight: 50, borderTopWidth: 0, borderBottomWidth: 2, borderBottomColor: '#7c3271', fontFamily: 'Allerta, sans-serif', color: 'black' }}>P.U.</th>
-                      <th style={{ background: '#faf0d2', fontSize: 25, marginRight: 0, paddingRight: 50, borderTopWidth: 0, borderBottomWidth: 2, borderBottomColor: '#7c3271', fontFamily: 'Allerta, sans-serif', color: 'black' }}>Subtotal</th>
+                  <thead style={{ background: 'rgb(245, 245, 245)' }}>
+                    <tr style={{ background: 'rgb(245, 245, 245)' }}>
+                      <th style={{ background: 'rgb(245, 245, 245)', fontSize: 25, paddingRight: 50, borderTopWidth: 0, borderBottomWidth: 2, borderBottomColor: 'black', fontFamily: 'Allerta, sans-serif', color: 'black' }}>Producto</th>
+                      <th style={{ background: 'rgb(245, 245, 245)', fontSize: 25, marginRight: 0, paddingRight: 50, borderTopWidth: 0, borderBottomWidth: 2, borderBottomColor: 'black', fontFamily: 'Allerta, sans-serif', color: 'black' }}>Cantidad</th>
+                      <th style={{ background: 'rgb(245, 245, 245)', fontSize: 25, width: 100, paddingRight: 50, borderTopWidth: 0, borderBottomWidth: 2, borderBottomColor: 'black', fontFamily: 'Allerta, sans-serif', color: 'black' }}>P.U.</th>
+                      <th style={{ background: 'rgb(245, 245, 245)', fontSize: 25, marginRight: 0, paddingRight: 50, borderTopWidth: 0, borderBottomWidth: 2, borderBottomColor: 'black', fontFamily: 'Allerta, sans-serif', color: 'black' }}>Subtotal</th>
                     </tr>
                   </thead>
                   <tbody>
                     {tableProducts.map((product, index) => (
                       <tr key={index}>
-                        <td style={{ background: '#faf0d2', borderBottomWidth: 0, fontFamily: 'Allerta, sans-serif', fontSize: 24, border: 'none' }}>{product.productName}</td>
-                        <td style={{ background: '#faf0d2', borderBottomWidth: 0, fontFamily: 'Allerta, sans-serif', fontSize: 24, border: 'none' }}>{product.quantity}</td>
-                        <td style={{ background: '#faf0d2', width: 100, borderBottomWidth: 0, fontFamily: 'Allerta, sans-serif', fontSize: 24, border: 'none' }}>{product.price}</td>
-                        <td style={{ background: '#faf0d2', borderBottomWidth: 0, fontFamily: 'Allerta, sans-serif', fontSize: 24, border: 'none' }}>{product.quantity * product.price}</td>
+                        <td style={{ background: 'rgb(245, 245, 245)', borderBottomWidth: 0, fontFamily: 'Allerta, sans-serif', fontSize: 24, border: 'none' }}>{product.productName}</td>
+                        <td style={{ background: 'rgb(245, 245, 245)', borderBottomWidth: 0, fontFamily: 'Allerta, sans-serif', fontSize: 24, border: 'none' }}>{product.quantity}</td>
+                        <td style={{ background: 'rgb(245, 245, 245)', width: 100, borderBottomWidth: 0, fontFamily: 'Allerta, sans-serif', fontSize: 24, border: 'none' }}>{product.price}</td>
+                        <td style={{ background: 'rgb(245, 245, 245)', borderBottomWidth: 0, fontFamily: 'Allerta, sans-serif', fontSize: 24, border: 'none' }}>{product.quantity * product.price}</td>
                       </tr>
                     ))}
                     <tr>
-                      <td style={{ background: '#faf0d2', borderTopColor: '#7c3271', borderLeft: '0px', borderRight: '0px', borderBottom: '0px', borderRadius: '0px' }}></td>
-                      <td style={{ background: '#faf0d2', borderTopColor: '#7c3271', borderLeft: '0px', borderRight: '0px', borderBottom: '0px', borderRadius: '0px' }}></td>
-                      <td style={{ background: '#faf0d2', fontFamily: 'Allerta, sans-serif', fontSize: 25, borderTopColor: '#7c3271', borderLeft: '0px', borderRight: '0px', borderBottom: '0px', borderRadius: '0px' }}>Total</td>
-                      <td style={{ background: '#faf0d2', fontFamily: 'Allerta, sans-serif', fontSize: 25, borderTopColor: '#7c3271', borderLeft: '0px', borderRight: '0px', borderBottom: '0px', borderRadius: '0px' }}>${total.toFixed(2)}</td>
+                      <td style={{ background: 'rgb(245, 245, 245)', borderTopColor: 'black', borderTopWidth: "2px", borderLeft: '0px', borderRight: '0px', borderBottom: '0px', borderRadius: '0px' }}></td>
+                      <td style={{ background: 'rgb(245, 245, 245)', borderTopColor: 'black', borderTopWidth: "2px", borderLeft: '0px', borderRight: '0px', borderBottom: '0px', borderRadius: '0px' }}></td>
+                      <td style={{ background: 'rgb(245, 245, 245)', fontFamily: 'Allerta, sans-serif', borderTopWidth: "2px", fontSize: 25, borderTopColor: 'black', borderLeft: '0px', borderRight: '0px', borderBottom: '0px', borderRadius: '0px' }}>Total</td>
+                      <td style={{ background: 'rgb(245, 245, 245)', fontFamily: 'Allerta, sans-serif', borderTopWidth: "2px", fontSize: 25, borderTopColor: 'black', borderLeft: '0px', borderRight: '0px', borderBottom: '0px', borderRadius: '0px' }}>${total.toFixed(2)}</td>
                     </tr>
                     <tr>
-                      <td style={{ background: '#faf0d2', border: 'none' }}></td>
-                      <td style={{ background: '#faf0d2', border: 'none' }}></td>
-                      <td style={{ background: '#faf0d2', fontFamily: 'Allerta, sans-serif', fontSize: 25, border: 'none' }}>Redondeo</td>
-                      <td style={{ background: '#faf0d2', fontFamily: 'Allerta, sans-serif', fontSize: 25, border: 'none' }}>${roundedTotal}</td>
+                      <td style={{ background: 'rgb(245, 245, 245)', border: 'none' }}></td>
+                      <td style={{ background: 'rgb(245, 245, 245)', border: 'none' }}></td>
+                      <td style={{ background: 'rgb(245, 245, 245)', fontFamily: 'Allerta, sans-serif', fontSize: 25, border: 'none' }}>Redondeo</td>
+                      <td style={{ background: 'rgb(245, 245, 245)', fontFamily: 'Allerta, sans-serif', fontSize: 25, border: 'none' }}>${roundedTotal}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -274,14 +274,14 @@ export default function MenuPage() {
                 <label className="form-label" style={{ fontFamily: 'Allerta, sans-serif', fontSize: 25, color: 'var(--bs-emphasis-color)', marginLeft: 20 }}>Buscar:&nbsp;</label>
                 <input
                   type="search"
-                  style={{ background: '#faf0d2', width: 160, outline: 'none', color: 'black', padding: '0px 10px' }}
+                  style={{ background: 'rgb(245, 245, 245)', width: 160, outline: 'none', color: 'black', padding: '0px 10px' }}
                   value={search}
                   onChange={handleSearchChange}
                 />
                 <div>
                   <ul className="list-group">
                     {filteredProducts.map((product, index) => (
-                      <li key={index} className="list-group-item d-xl-flex justify-content-xl-center" style={{ background: '#faf0d2', border: 'none', color: 'rgb(255,255,255)' }}>
+                      <li key={index} className="list-group-item d-xl-flex justify-content-xl-center" style={{ background: 'rgb(245, 245, 245)', border: 'none', color: 'rgb(255,255,255)' }}>
                         <button
                           onClick={() => handleOpenPopupProduct(product)}
                           className="btn btn-primary"
