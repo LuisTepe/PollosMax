@@ -143,7 +143,7 @@ const PopupInsert = ({ onClose }) => {
 
     return (
         <div className="modal-container" id="modal">
-            <div className="modal-content d-inline-flex justify-content-lg-center align-items-lg-center" style={{ background: 'rgb(251, 225, 147)', width: '40vw', height: '95vh', padding: '0px', borderRadius: '10px', border: '2px solid var(--bs-emphasis-color)', marginBottom: '0px' }}>
+            <div className="modal-content d-inline-flex justify-content-lg-center align-items-lg-center" style={{ background: '#F5f5f5;', width: '40vw', height: '95vh', padding: '0px', borderRadius: '10px', border: '2px solid var(--bs-emphasis-color)', marginBottom: '0px' }}>
                 <div style={{ width: '350px', textAlign: 'center', height: '500px', marginBottom: '185px' }}>
                     <div className="d-lg-flex justify-content-lg-end">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" className="bi bi-x d-lg-flex align-content-around align-self-end order-1 justify-content-lg-end align-items-lg-start" style={{ width: '40px', height: '40px', cursor: 'pointer' }} onClick={onClose}>
@@ -154,23 +154,23 @@ const PopupInsert = ({ onClose }) => {
                         <p style={{ fontSize: '30px', fontWeight: 'bold', fontFamily: 'Allerta', marginTop: '0px', marginBottom: '0px' }}>Agregar producto</p>
                     </div>
 
-                    <div style={{ marginTop: '10px' }}>
+                    <div style={{ marginTop: '5px' }}>
                         <p style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Nombre</p>
                     </div>
                     <div>
-                        <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="text" value={productName} onChange={handleProductNameChange} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
+                        <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#F5f5f5;', padding: '0px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
+                            <input type="text" placeholder="Ingresa un nombre" value={productName} onChange={handleProductNameChange} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
 
-                    <div style={{ marginTop: '10px' }}>
-                        <p style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Tipo de producto</p>
+                    <div style={{ marginTop: '5px' }}>
+                        <p style={{ marginTop: '5px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Tipo de producto</p>
                     </div>
                     <div>
                         <select
                             value={productType}
                             onChange={(e) => setProductType(e.target.value)}
-                            style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px', width: '330px', borderRadius: '5px', color: 'rgb(0,0,0)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)' }}
+                            style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px', width: '330px', borderRadius: '5px', color: 'rgb(0,0,0)', background: '#F5f5f5', padding: '2px', border: '2px solid var(--bs-emphasis-color)' }}
                         >
                             <option value="" disabled hidden>Selecciona el tipo de producto</option>
                             <option value="1" style={{ color: 'rgb(0,0,0)' }}>Almacen</option>
@@ -178,14 +178,14 @@ const PopupInsert = ({ onClose }) => {
                         </select>
                     </div>
 
-                    <div style={{ marginTop: '10px' }}>
-                        <p style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Tipo de unidad</p>
+                    <div style={{ marginTop: '5px' }}>
+                        <p style={{ marginTop: '5px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Tipo de unidad</p>
                     </div>
                     <div>
                         <select
                             value={productUnit}
                             onChange={(e) => setProductUnit(e.target.value)}
-                            style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px', width: '330px', borderRadius: '5px', color: 'rgb(0,0,0)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)' }}
+                            style={{ marginTop: '5px', fontFamily: 'Allerta', textAlign: 'center', fontSize: '15px', width: '330px', borderRadius: '5px', color: 'rgb(0,0,0)', background: '#F5f5f5', padding: '2px', border: '2px solid var(--bs-emphasis-color)' }}
                         >
                             <option value="" disabled hidden >Selecciona la unidad</option>
                             <option value="1" style={{ color: 'rgb(0,0,0)' }}>KG</option>
@@ -194,30 +194,30 @@ const PopupInsert = ({ onClose }) => {
                         </select>
                     </div>
 
-                    <div style={{ marginTop: '10px' }}>
-                        <p style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Precio</p>
+                    <div style={{ marginTop: '5px' }}>
+                        <p style={{ marginTop: '5px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Precio</p>
                     </div>
                     <div>
-                        <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="text" value={productPrice} onChange={handlePriceChange} onKeyPress={handleKeyPress} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
+                        <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#F5f5f5', padding: '0px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
+                            <input type="text" placeholder="Defina un precio" value={productPrice} onChange={handlePriceChange} onKeyPress={handleKeyPress} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
 
-                    <div style={{ marginTop: '10px' }}>
-                        <p style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Cantidad actual en almacén</p>
+                    <div style={{ marginTop: '5x' }}>
+                        <p style={{ marginTop: '5px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Cantidad actual en almacén</p>
                     </div>
                     <div>
-                        <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="text" value={currentAmount} onChange={handleCurrentAmountChange} onKeyPress={handleKeyPress} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
+                        <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#F5f5f5', padding: '0px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
+                            <input type="text" placeholder="Actual" value={currentAmount} onChange={handleCurrentAmountChange} onKeyPress={handleKeyPress} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
 
-                    <div style={{ marginTop: '10px' }}>
-                        <p style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Cantidad mínima de alerta en almacén</p>
+                    <div style={{ marginTop: '0px' }}>
+                        <p style={{ marginTop: '5px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Cantidad mínima de alerta en almacén</p>
                     </div>
                     <div>
-                        <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '2px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
-                            <input type="text" value={minimumAmount} onChange={handleMinimumAmountChange} onKeyPress={handleKeyPress} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
+                        <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#F5f5f5', padding: '0px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
+                            <input type="text" placeholder="Min" value={minimumAmount} onChange={handleMinimumAmountChange} onKeyPress={handleKeyPress} style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
 

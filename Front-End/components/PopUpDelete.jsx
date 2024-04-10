@@ -55,7 +55,7 @@ const PopupDelete = ({ onClose, idProduct }) => {
 
     return (
         <div className="modal-container" id="modal">
-            <div className="modal-content d-inline-flex justify-content-lg-center align-items-lg-center" style={{ background: 'rgb(251, 225, 147)', width: '400px', height: '400px', padding: '75px', borderRadius: '10px', border: '2px solid var(--bs-emphasis-color)', marginTop: '80px' }}>
+            <div className="modal-content d-inline-flex justify-content-lg-center align-items-lg-center" style={{ background: '#F5f5f5', width: '400px', height: '400px', padding: '75px', borderRadius: '10px', border: '2px solid var(--bs-emphasis-color)', marginTop: '80px' }}>
                 <div style={{ width: '350px', textAlign: 'center', height: '500px' }}>
                     <div className="d-lg-flex justify-content-lg-end">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" className="bi bi-x d-lg-flex align-content-around align-self-end order-1 justify-content-lg-end align-items-lg-start" style={{ width: '40px', height: '40px', cursor: 'pointer' }} onClick={onClose}>
@@ -70,7 +70,7 @@ const PopupDelete = ({ onClose, idProduct }) => {
                         <p style={{ marginTop: '10px', fontFamily: 'Allerta', textAlign: 'left', fontSize: '18px' }}>Código de este producto</p>
                     </div>
                     <div>
-                        <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#D9D9D9', padding: '10px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
+                        <div className="text-start" style={{ borderRadius: '5px', color: 'rgb(157,153,153)', background: '#F5f5f5', padding: '10px', border: '2px solid var(--bs-emphasis-color)', width: '330px' }}>
                             <input type="number" value={idProduct} readOnly style={{ color: 'black', background: 'rgba(255,255,255,0)', borderColor: 'rgba(194,186,186,0)', outline: 'none' }} />
                         </div>
                     </div>
