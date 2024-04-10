@@ -5,7 +5,7 @@ import flechaArriba from "/src/assets/img/caret-flecha-hacia-arriba.png";
 import "./ProductSorting.css"
 import editar from "/src/assets/img/editar.png";
 import borrar from "/src/assets/img/borrar.png";
-import agregar from "/src/assets/img/agregar.png";
+import agregar from "/src/assets/img/agregar2.png";
 import PopupDelete from './PopUpDelete'; 
 import PopupUpdate from './PopUpUpdate'; 
 import PopupInsert from './PopUpInsert';
@@ -82,34 +82,29 @@ function ProductSortingBar({ handleSort, products }) {
          <div className="product-categories">
            <button
              className={activeField === 'code' ? 'active' : ''}
-             onClick={() => handleClick('code')}
+             
            >
              Código
            </button>
            <button
              className={activeField === 'name' ? 'active' : ''}
-             onClick={() => handleClick('name')}
+           
            >
              Nombre
            </button>
            <button
              className={activeField === 'price' ? 'active' : ''}
-             onClick={() => handleClick('price')}
+         
            >
              Precio
            </button>
            <button
              className={activeField === 'stock' ? 'active' : ''}
-             onClick={() => handleClick('stock')}
+            
            >
              Stock
            </button>
-           <img
-             className={`image-format ${activeField === 'image' ? 'active' : ''}`}
-             src={imageSrc}
-             alt="caret-abajo"
-             onClick={() => handleClick('image')}
-           />
+           
          </div>
        </div>
        <SearchBar handleSearch={handleSearch} />

@@ -2,7 +2,7 @@
 
 .product-sorting-general {
   display: block;
-  background-color: #d2aaf8; 
+  background-color: #35374B; 
   padding: 0.5em 1em; 
   width: 82%;
   box-sizing: border-box; 
@@ -12,6 +12,7 @@
   display: flex; 
   align-items: center; 
   justify-content: center; 
+  font: Roboto;
 }
 
 .product-categories {
@@ -24,9 +25,10 @@
 .product-categories button {
   display: block;
   border-style: hidden;
-  background-color: #d2aaf8;
-  color: black;
-  font-size: 1em;
+  background-color: #35374B;
+  color: #D9D9D9;
+  font-size: 16px;
+  font: 700;
   flex: 1; 
   margin: 0 4.5em; 
 }
@@ -36,16 +38,16 @@
 }
 
 .product-categories button:nth-child(2) {
-  transform: translateX(1em);
+  transform: translateX(-3em);
 }
 
 .product-categories button:nth-child(3) {
-  transform: translateX(6.5em);
+  transform: translateX(4.5em);
 }
 
 
 .product-categories button:nth-child(4) {
-  transform: translateX(-4.5em);
+  transform: translateX(-6.5em);
 }
 
 .product-categories button:hover {
@@ -81,12 +83,13 @@ input[type="number"]::-webkit-outer-spin-button {
 .product-table td {
   padding: 0.5em; 
   border: 1px solid #ccc; 
-  background-color: rgb(165, 163, 163); 
+  background-color: #B6BBC4;
   font-weight: bold; 
   height: 3em; 
+  font: Roboto;
 }
 .product-table td:nth-child(1) {
-  width: 1em; 
+  width: 1.5em; 
 }
 
 .product-table td:nth-child(2) {
@@ -95,11 +98,13 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .product-table td:nth-child(3) {
-  width: 5em; 
+  width: 8em; 
+  text-align: center;
 }
 
 .product-table td:nth-child(4) {
-  width: 5em; 
+  width: 8em; 
+  text-align: center;
 }
 
 
@@ -121,7 +126,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 
 .product-item button {
-  background-color: rgb(165, 163, 163); 
+  background-color: #B6BBC4;
   border: none;
   padding: 0.1em;
   border-radius: 0.5em;
@@ -152,10 +157,11 @@ input[type="number"]::-webkit-outer-spin-button {
   position: fixed; 
   bottom: 1em;
   right: 1.5em; 
-  background-color: #f4f4f4;
+  background-color: #F5f5f5;
   border: none;
   padding: 0.5em; 
   border-radius: 0.5em; 
+  color: #31304D;
 }
 
 .add-button :hover {
@@ -163,8 +169,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .add-icon {
-  width: 2em; 
-  height: 2em; 
+  width: 2.5em; 
+  height: 2.5em; 
   margin-left: 0.5em; 
 }
 
