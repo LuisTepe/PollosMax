@@ -22,10 +22,10 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen}) {
 
     return (
         <div>
-                <div id="mySidebar" className={`sidebar ${isSidebarOpen ? '' : 'closed'}`} style={{ background: "#fbd23a", height: '100%', width: '250px'}}>
+                <div id="mySidebar" className={`sidebar ${isSidebarOpen ? '' : 'closed'}`} style={{ background: "rgb(22, 26, 48)", height: '100%', width: '250px'}}>
                     <div className="sidebar-header">
                         <img
-                            src="../src/assets/img/pollomaxlogo.jpg"
+                            src="../src/assets/img/pollomaxlogo.png"
                             style={{
                                 width: "80px",
                                 height: "80px",
@@ -35,9 +35,9 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen}) {
                             alt="Logo"
                         />
                     </div>
-                    <ul className="list-unstyled components" style={{ '--bs-primary': '#fbd23a', '--bs-primary-rgb': '251,210,58', background: '#fbd23a', borderColor: '#fbd23a' }}>
+                    <ul className="list-unstyled components" style={{ '--bs-primary': 'rgb(22, 26, 48)', '--bs-primary-rgb': 'rgb(22, 26, 48)', background: 'rgb(22, 26, 48)', borderColor: 'rgb(22, 26, 48)' }}>
                         {pages.map((page, index) => (
-                            <li key={index} style={{ backgroundColor: '#fbd23a', color: 'var(--bs-emphasis-color)', fontSize: '20px', fontFamily: 'Allerta', fontWeight: 'bold' }}>
+                            <li key={index} style={{ backgroundColor: '#161A30', color: 'var(--bs-emphasis-color)', fontSize: '20px', fontFamily: 'Allerta', fontWeight: 'bold' }}>
                                 <NavLink to={`/${page}`} className={({isActive}) => `${isActive === true ? 'sidebar-active': ''}`}>{pageNames[index]}</NavLink>
                             </li>
                         ))}

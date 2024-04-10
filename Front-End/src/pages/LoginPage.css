@@ -1,5 +1,5 @@
 #login-container {
-    background: rgb(251, 225, 147);
+    background: rgb(245, 245, 245);
     width: auto;
     height: auto;
     padding: 0px;
@@ -9,3 +9,14 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
+.d-flex.justify-content-center {
+  filter: drop-shadow(4px 4px 0px rgba(0,0,0,.25));
+}
+.letras {
+  filter: drop-shadow(1.5px 1.5px 0px rgba(0,0,0,.25));
+}
+
+.iniciarSesion {
+  filter: drop-shadow(1.5px 1.5px 0px rgba(0,0,0,.25));
+}
