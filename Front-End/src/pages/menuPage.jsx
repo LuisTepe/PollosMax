@@ -114,7 +114,7 @@ export default function MenuPage() {
     try {
       // Llama al backend para buscar el producto en la base de datos
       const response = await axios.post('http://localhost:3000/searchProductos', { id: selectedProduct.productName });
-      const product = response.data[0];
+      const product = response.data;
 
       console.log('Fetched product:', product);
 
