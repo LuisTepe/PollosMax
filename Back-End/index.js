@@ -30,7 +30,7 @@ app.post('/login', async (req, res) => {
   }
 
   try {
-    const query = `SELECT idUser, username, password, userTypeName FROM user, userType WHERE username = ? AND password = ? AND user.idUserType = userType.idUserType AND userStatus = 'ACTIVO'`;
+    const query = `SELECT idUser, username, password, userTypeName FROM user, userType WHERE hex(username) = hex(?) AND hex(password) = hex(?) AND user.idUserType = userType.idUserType AND userStatus = 'ACTIVO'`;
     db.all(query, [user, pass], (error, result) => {
       if (error) {
         console.error("Error during login:", error);
