@@ -279,7 +279,7 @@ app.post('/transaction', (req, res) => {
   }
 
   try {
-    const query = `INSERT INTO transaction(idUser, idMovementType, date, time, totalPrice) VALUES (?, ?, datetime('now'), datetime('now'), ?)`;
+    const query = `INSERT INTO "transaction"(idUser, idMovementType, date, time, totalPrice) VALUES (?, ?, datetime('now'), datetime('now'), ?)`;
     db.run(query, [idUser, idMovementType, totalPrice], function(error) {
       if (error) {
         console.error("Error al registrar la transacción:", error);

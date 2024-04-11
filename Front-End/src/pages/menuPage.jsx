@@ -16,7 +16,11 @@ export default function MenuPage() {
   const user = getLoggedInUser();
 
   const [color, setColor] = useState({
-    color: 'rgb(49, 48, 77)',
+    color: ' rgb(49, 48, 77)',
+    borderColor: ' rgb(49, 48, 77)',
+    borderTopColor: ' rgb(49, 48, 77)',
+    borderRightColor: ' rgb(49, 48, 77)',
+    borderBottomColor: ' rgb(49, 48, 77)',
   })
 
   const [search, setSearch] = useState('');
@@ -62,19 +66,7 @@ export default function MenuPage() {
     return nameMatch || amountMatch;
   });
 
-  const handleSearchChange = async (event) => {
-    const searchValue = event.target.value;
-
-    // Si la cadena no está vacía, verifica si es alfanumérica
-    if (searchValue && !/^[a-z0-9]+$/i.test(searchValue)) {
-      console.error('Only alphanumeric characters are allowed');
-      return;
-    }
-
-    setSearch(searchValue);
-
-    console.log(`Searching for: ${searchValue}`); // Imprime la consulta de búsqueda en la consola
-
+  const searchProducts = async (searchValue) => {
     // Llama a tu API cuando el valor de búsqueda cambia
     try {
       const response = await axios.post('http://localhost:3000/search', { search: searchValue });
@@ -89,21 +81,51 @@ export default function MenuPage() {
     }
   };
 
+  const handleSearchChange = async (event) => {
+    const searchValue = event.target.value; // Extrae el valor del campo de entrada del objeto de evento
+
+    // Si la cadena no está vacía, verifica si es alfanumérica
+    console.log('Search value:', searchValue);
+    if (searchValue && !/^[a-z0-9 ]+$/i.test(searchValue)) {
+      console.error('Only alphanumeric characters are allowed');
+      return;
+    }
+
+    setSearch(searchValue);
+    searchProducts(searchValue);
+  };
+
+  useEffect(() => {
+    searchProducts(''); // Llama a searchProducts con una cadena vacía
+  }, []); // El array vacío significa que este efecto se ejecutará solo una vez, cuando se monte el componente
+
   function handleMouseUp() {
     setColor({
-      color: 'rgba(117, 42, 116, 1)',
+      color: ' rgb(49, 48, 77)',
+      borderColor: ' rgb(49, 48, 77)',
+      borderTopColor: ' rgb(49, 48, 77)',
+      borderRightColor: ' rgb(49, 48, 77)',
+      borderBottomColor: ' rgb(49, 48, 77)',
     })
   }
 
   function handleMouseDown() {
     setColor({
-      color: 'rgba(155, 80, 154, 1)',
+      color: ' rgb(49, 48, 77)',
+      borderColor: ' rgb(49, 48, 77)',
+      borderTopColor: ' rgb(49, 48, 77)',
+      borderRightColor: ' rgb(49, 48, 77)',
+      borderBottomColor: ' rgb(49, 48, 77)',
     })
   }
 
   function handleHover() {
     setColor({
-      color: 'rgba(155, 80, 154, 0.5)',
+      color: ' rgb(49, 48, 77)',
+      borderColor: ' rgb(49, 48, 77)',
+      borderTopColor: ' rgb(49, 48, 77)',
+      borderRightColor: ' rgb(49, 48, 77)',
+      borderBottomColor: ' rgb(49, 48, 77)',
     })
   }
 

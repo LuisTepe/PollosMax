@@ -5,11 +5,11 @@ import { handleKeyDownForNumericInputs, handleValueForNumericInputs } from "../s
 
 const PopupProduct = ({ onClose, onConfirm, productName, productAmount}) => {
     const [color, setColor] = useState({
-        color: 'rgba(0, 0, 0, 1)',
-        borderColor: 'rgba(0, 0, 0, 1)',
-        borderTopColor: 'rgba(0, 0, 0, 1)',
-        borderRightColor: 'rgba(0, 0, 0, 1)',
-        borderBottomColor: 'rgba(0, 0, 0, 1)',
+        color: ' rgb(49, 48, 77)',
+            borderColor: ' rgb(49, 48, 77)',
+            borderTopColor: ' rgb(49, 48, 77)',
+            borderRightColor: ' rgb(49, 48, 77)',
+            borderBottomColor: ' rgb(49, 48, 77)',
     })
     const [quantity, setQuantity] = useState("");
 
@@ -24,37 +24,37 @@ const PopupProduct = ({ onClose, onConfirm, productName, productAmount}) => {
 
     function handleMouseUp() {
         setColor({
-            color: 'rgba(0, 0, 0, 1)',
-            borderColor: 'rgba(0, 0, 0, 1)',
-            borderTopColor: 'rgba(0, 0, 0, 1)',
-            borderRightColor: 'rgba(0, 0, 0, 1)',
-            borderBottomColor: 'rgba(0, 0, 0, 1)',
+            color: ' rgb(49, 48, 77)',
+            borderColor: ' rgb(49, 48, 77)',
+            borderTopColor: ' rgb(49, 48, 77)',
+            borderRightColor: ' rgb(49, 48, 77)',
+            borderBottomColor: ' rgb(49, 48, 77)',
         })
     }
 
     function handleMouseDown() {
         setColor({
-            color: 'rgba(30, 30, 30, 1)',
-            borderColor: 'rgba(30, 30, 30, 1)',
-            borderTopColor: 'rgba(30, 30, 30, 1)',
-            borderRightColor: 'rgba(30, 30, 30, 1)',
-            borderBottomColor: 'rgba(30, 30, 30, 1)',
+            color: ' rgb(49, 48, 77)',
+            borderColor: ' rgb(49, 48, 77)',
+            borderTopColor: ' rgb(49, 48, 77)',
+            borderRightColor: ' rgb(49, 48, 77)',
+            borderBottomColor: ' rgb(49, 48, 77)',
         })
     }
 
     function handleHover() {
         setColor({
-            color: 'rgba(30, 30, 30, 1)',
-            borderColor: 'rgba(30, 30, 30, 1)',
-            borderTopColor: 'rgba(30, 30, 30, 1)',
-            borderRightColor: 'rgba(30, 30, 30, 1)',
-            borderBottomColor: 'rgba(30, 30, 30, 1)',
+            color: ' rgb(49, 48, 77)',
+            borderColor: ' rgb(49, 48, 77)',
+            borderTopColor: ' rgb(49, 48, 77)',
+            borderRightColor: ' rgb(49, 48, 77)',
+            borderBottomColor: ' rgb(49, 48, 77)',
         })
     }
    
     return (
         <div className="modal-container" id="modal">
-            <div className="modal-content d-inline-flex justify-content-lg-center align-items-lg-center" style={{ background: 'rgb(251, 225, 147)', width: '400px', height: '550px', padding: '75px', borderRadius: '10px', border: '2px solid var(--bs-emphasis-color)', marginTop: '80px' }}>
+            <div className="modal-content d-inline-flex justify-content-lg-center align-items-lg-center" style={{ background: 'rgb(182, 187, 196)', width: '400px', height: '550px', padding: '75px', borderRadius: '10px', border: '2px solid var(--bs-emphasis-color)', marginTop: '80px' }}>
                 <div style={{ width: '350px', textAlign: 'center', height: '500px' }}>
                     <div className="d-lg-flex justify-content-lg-end">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" className="bi bi-x d-lg-flex align-content-around align-self-end order-1 justify-content-lg-end align-items-lg-start" style={{ width: '40px', height: '40px', cursor: 'pointer' }} onClick={onClose}>
