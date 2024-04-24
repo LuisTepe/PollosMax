@@ -69,6 +69,26 @@ app.get('/inventory', async (req, res) => {
   }
 });
 
+app.get('/transactions', async (req, res) => {
+  try {
+    const query = `SELECT * FROM [transaction] a
+    INNER JOIN [user] b on a.idUser = b.idUser
+    INNER JOIN [movementtype] c on a.idMovementType = c.idMovementType
+    ORDER BY idTransaction ASC;`;
+    db.all(query, [], (error, result) => {
+      if (error) {
+        console.error("Error during fetching transaction:", error);
+        res.status(500).json({ message: "Error en la base de datos" });
+      } else {
+        res.status(200).json(result);
+      }
+    });
+  } catch (error) {
+    console.error("Error during fetching transaction:", error);
+    res.status(500).json({ message: "Error en la base de datos" });
+  }
+});
+
 //funcion para actualizar la cantidad minima de un producto
 app.put('/updateInventoryAmount', (req, res) => {
   const { idProduct, minimumAmount } = req.body;
