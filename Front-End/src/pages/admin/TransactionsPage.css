@@ -1,0 +1,15 @@
+.table thead th {
+  background-color: #35374B;
+  color: white;
+  font-family: 'Roboto';
+}
+
+.table {
+  font-weight: bold;
+  font-family: 'Allerta';
+}
+
+.table td {
+  background-color: #B6BBC4;
+  color: black;
+}
