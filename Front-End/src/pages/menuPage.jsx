@@ -174,12 +174,8 @@ export default function MenuPage() {
     console.log(user);
     if (user === 'admin') {
       usuario = 1;
-    } else if (user === 'user') {
-      usuario = 2;
     } else {
-      console.log(user);
-      console.error('Error al registrar la venta:', 'No se pudo obtener el tipo de usuario');
-      return;
+      usuario = 2;
     }
 
     // Itera sobre los productos en la tabla
