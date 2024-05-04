@@ -104,7 +104,7 @@ export default function PopUpCompra({ onClose, total, onCompra }) {
         console.log(user);
         if (user === 'admin') {
             usuario = 1;
-        } else if (user === 'user') {
+        } else if (user === 'caja') {
             usuario = 2;
         } else {
             console.log(user);
